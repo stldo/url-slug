@@ -1,0 +1,32 @@
+{
+  "name": "url-slug",
+  "version": "1.0.0",
+  "description": "Slug generator complying with RFC 3986",
+  "homepage": "http://github.com/sbtoledo/node-url-slug",
+  "author": "Saulo Toledo (http://github.com/sbtoledo)",
+  "keywords": [
+    "slug",
+    "slugs",
+    "slugify",
+    "url",
+    "string"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no tests available\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sbtoledo/node-url-slug.git"
+  },
+  "engines": {
+    "node": ">=0.12.0"
+  },
+  "dependencies": {
+    "iconv": "2.1.10"
+  },
+  "devDependencies": {
+    "eslint": "1.4.1"
+  },
+  "license": "MIT"
+}
