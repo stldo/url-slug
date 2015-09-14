@@ -179,5 +179,6 @@ urlSlug.convert('Listen to Charly García (before going to Buenos Aires)');
 - `.setOptions()` method, useful for global instance configuration
 - Camel case split as an option
 - Simplify code
+- Locale settings on iconv through `options.locale`
 - Support for browsers?
 - Tests?
