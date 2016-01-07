@@ -1,12 +1,11 @@
 # node-url-slug
 
-Very flexible slug generator complying with RFC 3986 and support for multiple languages.
+Flexible slug generator complying with RFC 3986 and support for multiple languages.
 
 ## Features
 
 - RFC 3986 compliant
 - Create safe slugs for use in path and query parts
-- Uses NFKD normalization and iconv transliteration
 - Splits camel case words (i.e. camelCase => camel-case)
 - Slug reversion (i.e. slug-reversion => Slug Reversion)
 - Fully configurable
@@ -37,10 +36,10 @@ urlSlug('Sir James Paul McCartney MBE is an English singer-songwriter');
 ### Convert Unicode to ASCII while keeping the case
 
 ```js
-urlSlug('á é í ó ú Á É Í Ó Ú ç Ç æ Æ œ Œ ® © ™ € ¥ ª º ¹ ² ½ ¼', {
+urlSlug('á é í ó ú Á É Í Ó Ú ç Ç æ Æ œ Œ ® © € ¥ ª º ¹ ² ½ ¼', {
     case: urlSlug.KEEP_CASE,
 });
-// a-e-i-o-u-A-E-I-O-U-c-C-ae-AE-oe-OE-R-c-TM-EUR-yen-a-o-1-2-1-2-1-4
+// a-e-i-o-u-A-E-I-O-U-c-C-ae-AE-oe-OE-r-c-EU-Y-a-o-1-2-1-2-1-4
 ```
 
 ### No separator at all
@@ -174,11 +173,10 @@ urlSlug.convert('Listen to Charly García (before going to Buenos Aires)');
 
 ## TODO
 
-- Remove unwanted characters using `data.replace(disallow._regexp.filter, '')` before iconv
+- Remove unwanted characters using `data.replace(disallow._regexp.filter, '')` before unidecode
 - Url queries can have `"/"` and `"?"` characters, allow them if options.query is set to true
 - `.setOptions()` method, useful for global instance configuration
 - Camel case split as an option
 - Simplify code
-- Locale settings on iconv through `options.locale`
-- Support for browsers?
-- Tests?
+- Support for browsers
+- Tests
