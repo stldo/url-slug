@@ -1,32 +1,27 @@
 {
   "name": "url-slug",
-  "version": "1.1.0",
-  "description": "Slug generator complying with RFC 3986",
-  "homepage": "http://github.com/sbtoledo/node-url-slug",
-  "author": "Saulo Toledo (http://github.com/sbtoledo)",
+  "version": "2.0.0",
+  "description": "RFC 3986 compliant slug generator with support for multiple languages",
+  "main": "index.js",
+  "dependencies": {
+    "unidecode": "0.1.8"
+  },
+  "devDependencies": {
+    "chai": "3.5.0",
+    "mocha": "2.5.3"
+  },
+  "scripts": {
+    "test": "mocha test"
+  },
+  "repository": "sbtoledo/url-slug",
   "keywords": [
     "slug",
     "slugs",
     "slugify",
     "url",
-    "string"
+    "string",
+    "seo"
   ],
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"No tests available\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/sbtoledo/node-url-slug.git"
-  },
-  "engines": {
-    "node": ">=0.12.0"
-  },
-  "dependencies": {
-    "unidecode": "0.1.8"
-  },
-  "devDependencies": {
-    "eslint": "1.10.3"
-  },
+  "author": "Saulo Toledo (sbtoledo.github.io)",
   "license": "MIT"
 }
