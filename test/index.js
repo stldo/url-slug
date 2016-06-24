@@ -125,7 +125,7 @@ describe('module', function () {
             it('should return only consonants', function () {
                 var transform = function (string) {
                     return string.replace(/[aeiou]/gi, '');
-                }
+                };
                 expect(instance.convert('React', '', transform)).to.be.equal('Rct');
             });
 

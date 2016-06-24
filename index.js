@@ -74,9 +74,9 @@ UrlSlug.prototype.prepare = function (separator, transform) {
     return {
         separator: separator,
         transform: transform,
-    }
+    };
 
-}
+};
 
 /**
  * Converts a string into a slug
@@ -87,7 +87,7 @@ UrlSlug.prototype.convert = function (string, separator, transform) {
         throw new Error('Invalid value, must be a string: "' + string + '".');
     }
 
-    options = this.prepare(separator, transform);
+    var options = this.prepare(separator, transform);
 
     /* Transliterate and replace invalid characters, then replace non alphanumeric characters with spaces */
 
@@ -114,7 +114,7 @@ UrlSlug.prototype.revert = function (slug, separator, transform) {
         throw new Error('Invalid value, must be a string: "' + slug + '".');
     }
 
-    options = this.prepare(separator, transform);
+    var options = this.prepare(separator, transform);
 
     /* Determine which regular expression will be used to—and—remove separators */
 
