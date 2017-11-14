@@ -1,12 +1,12 @@
-const unidecode = require('unidecode');
+var unidecode = require('unidecode');
 
-const INVALID_SEPARATOR_REGEXP = /[^-._~]/;
-const TITLE_CASE_REGEXP = /(?:^| )[a-z]/g;
-const CONVERT_REGEXP = /[^A-Za-z0-9]+|([a-z])([A-Z])/g;
-const CONVERT_SEPARATOR_REGEXP = / /g;
-const REVERT_REGEXP = {}; /* RegExp intances are based on the separator and then cached */
-const REVERT_AUTO_REGEXP = /[-._~]+|([a-z])([A-Z])/g;
-const REVERT_CAMEL_CASE_REGEXP = /([a-z])([A-Z])/g;
+var INVALID_SEPARATOR_REGEXP = /[^-._~]/;
+var TITLE_CASE_REGEXP = /(?:^| )[a-z]/g;
+var CONVERT_REGEXP = /[^A-Za-z0-9]+|([a-z])([A-Z])/g;
+var CONVERT_SEPARATOR_REGEXP = / /g;
+var REVERT_REGEXP = {}; /* RegExp intances are based on the separator and then cached */
+var REVERT_AUTO_REGEXP = /[-._~]+|([a-z])([A-Z])/g;
+var REVERT_CAMEL_CASE_REGEXP = /([a-z])([A-Z])/g;
 
 /**
  * Creates a new instance of url-slug
