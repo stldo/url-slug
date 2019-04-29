@@ -22,7 +22,7 @@ describe('module', () => {
 
   describe('instance', () => {
 
-    var instance = new urlSlug.UrlSlug
+    const instance = new urlSlug.UrlSlug()
 
     it(
       'should contain lowercase, uppercase and titlecase builtin transformers',
