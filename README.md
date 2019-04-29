@@ -1,83 +1,165 @@
 # url-slug [![build status](https://img.shields.io/travis/sbtoledo/url-slug.svg?style=flat)](https://travis-ci.org/sbtoledo/url-slug) [![npm version](https://img.shields.io/npm/v/url-slug.svg?style=flat)](https://www.npmjs.com/package/url-slug)
 
-RFC 3986 compliant slug generator with support for multiple languages. It creates safe slugs for use in urls—and can revert them.
+RFC 3986 compliant slug generator with multiple language support. It creates slugs safe for use in URL paths, queries and fragments, and can revert them too.
 
 ## Install
 
 ```bash
-$ npm install url-slug
+$ npm install --save url-slug
 ```
 
-## Use
+## Usage
 
-```js
-var urlSlug = require('url-slug');
+```javascript
+import urlSlug from 'url-slug'
 
-// Convert to common slug format, using defaults
-urlSlug('Sir James Paul McCartney MBE is an English singer-songwriter');
+urlSlug('Sir James Paul McCartney MBE is an English singer-songwriter')
 // sir-james-paul-mc-cartney-mbe-is-an-english-singer-songwriter
+```
 
-// Uppercase with default separator
-urlSlug('Comfortably Numb', null, 'uppercase');
+## Documentation
+
+### urlSlug(string, [separator], [transformer]), urlSlug.convert(string, [separator], [transformer])
+
+Returns the __string__ value converted to a slug.
+
+#### string
+
+Type: `string`
+
+The string that'll be converted.
+
+#### separator
+
+Type: `string`
+
+The character used to separate the slug fragments, set to `'-'` by default. Can be set to `'-'`, `'.'`, `'_'`, `'~'` or `''`.
+
+#### transformer
+
+Type: `function` or `false`
+
+A function that receives the slug fragments and the current separator as arguments. It must return the slug string. Defaults to the built-in transformer `urlSlug.transformers.lowercase`. It can be set to `false` if no transformation is desirable.
+
+#### Example
+
+```javascript
+import urlSlug from 'url-slug'
+
+urlSlug('Comfortably Numb', urlSlug.transformers.uppercase)
 // COMFORTABLY-NUMB
 
-// Use an underscore separator and don't touch the string case
-urlSlug('á é í ó ú Á É Í Ó Ú ç Ç æ Æ œ Œ ® © € ¥ ª º ¹ ² ½ ¼', '_', false);
+urlSlug('á é í ó ú Á É Í Ó Ú ç Ç æ Æ œ Œ ® © € ¥ ª º ¹ ² ½ ¼', '_', false)
 // a_e_i_o_u_A_E_I_O_U_c_C_ae_AE_oe_OE_r_c_EU_Y_a_o_1_2_1_2_1_4
 
-// Titlecased without a separator
-urlSlug('Red, red wine, stay close to me…', '', 'titlecase');
+urlSlug('Red, red wine, stay close to me…', '', urlSlug.transformers.titlecase)
 // RedRedWineStayCloseToMe
+```
 
-// Use a custom separator and uppercase the string (the separator '.' was ignored, because spaces were replaced)
-urlSlug('O\'Neill is an American surfboard, surfwear and equipment brand', '.', function (sentence) {
-    return sentence.replace(/ /g, '+').toUpperCase();
-});
-// O+NEILL+IS+AN+AMERICAN+SURFBOARD+SURFWEAR+AND+EQUIPMENT+BRAND
+### urlSlug.revert(slug, [separator], [transformer])
 
-// Automatic reversion of slugs
-urlSlug.revert('Replace-every_separator.allowed~andSplitCamelCase');
-// Replace every separator allowed and Split Camel Case
+Returns the __slug__ value converted to a human readable string.
 
-// Revert with specific separator and convert the sentence to title case
-urlSlug.revert('this-title-needs-a-title_case', '-', 'titlecase');
+#### slug
+
+Type: `string`
+
+The slug that'll be reverted.
+
+#### separator
+
+Type: `string` or `null`
+
+The value used to split the slug into fragments, set to `null` by default. Can be set to `null`, `'-'`, `'.'`, `'_'`, `'~'` or `''`. If set to `null`, the split will happen on any valid separator character or camel case occurrences. If set to an empty string, only camel case occurrences will be split.
+
+#### transformer
+
+Type: `function` or `false`
+
+A function that receives the string fragments and the current separator as arguments. Defaults to `false`, which means that no transformation will be made.
+
+#### Example
+
+```javascript
+import urlSlug from 'url-slug'
+
+urlSlug.revert('Replace-every_separator.allowed~andSplitCamelCaseToo')
+// Replace every separator allowed and Split Camel Case Too
+
+urlSlug.revert(
+  'this-title-needs-a-title_case',
+  '-',
+  urlSlug.transformers.titlecase
+)
 // This Title Needs A Title_case
+```
 
-// Create a new instance with its own defaults
-var custom = new urlSlug.UrlSlug('~', 'uppercase');
-custom.convert('Listen to Fito Páez in Madrid');
+### urlSlug.UrlSlug([separator], [transformer])
+
+`url-slug` constructor, useful if you want to create more instances. If `separator` or `transform` are set, they will the default values of the instance.
+
+#### separator
+
+Type: `string`
+
+Defaults to `'-'`. Can be set to `'-'`, `'.'`, `'_'`, `'~'` or `''`.
+
+#### transformer
+
+Type: `function` or `false`
+
+Defaults to `urlSlug.transformers.lowercase`. Can be set to a function or `false`, if no transformation is desired.
+
+#### Example
+
+```javascript
+import urlSlug from 'url-slug'
+
+const urlSlugInstance = new urlSlug.UrlSlug('~', urlSlug.transformers.uppercase)
+
+urlSlugInstance.convert('Listen to Fito Páez in Madrid')
 // LISTEN~TO~FITO~PAEZ~IN~MADRID
 ```
 
-## Know
+### Custom transformers
 
-### urlSlug(string[, separator, transform]), UrlSlug.convert(string[, separator, transform])
+Custom transformers are expressed by a function which receives two arguments, __fragments__, an array with the resulting words of the conversion, and __separator__, the current separator string used to join the words. On revert, the __separator__ will always be a space character (`' '`). Transformers should always return a string.
 
-Converts a sentence into a slug.
+#### Example
 
-- __separator__, defaults to `'-'` — can be any of `'-._~'` characters or an empty string; a `null` or `undefined` value will set the default separator
-- __transform__, defaults to `'lowercase'` — can be `'lowercase'`, `'uppercase'`, `'titlecase'` or a custom function; if set to `false`, no transform will take place; a `null` or `undefined` value will set the default transform
+```javascript
+import urlSlug from 'url-slug'
 
-### UrlSlug.revert(string[, separator, transform])
+urlSlug(
+  'O\'Neill is an American surfboard, surfwear and equipment brand',
+  fragments => fragments.join('+').toUpperCase()
+)
+// O+NEILL+IS+AN+AMERICAN+SURFBOARD+SURFWEAR+AND+EQUIPMENT+BRAND
 
-Reverts a slug back to a sentence.
+urlSlug.revert(
+  'WEIrd_SNAke_CAse',
+  '_',
+  (fragments, separator) => fragments.map(fragment => (
+    fragment.slice(0, -2).toLowerCase() + fragment.slice(-2).toUpperCase()
+  )).join(separator)
+)
+// weiRD snaKE caSE
+```
 
-- __separator__, defaults to `null` — can be any of `'-._~'` characters or an empty string; a `null` or `undefined` will set to match all possible separator characters and camel case occurrences; an empty string will set to match only camel case occurrences
-- __transform__, defaults to `null` — can be `'lowercase'`, `'uppercase'`, `'titlecase'` or a custom function; if set to `false`, `null` or `undefined` no transform will take place
+### Built-in transformers
 
-### urlSlug.UrlSlug([separator, transform])
+#### urlSlug.transformers.lowercase
 
-url-slug constructor, use this if you need another instance. If __separator__ or __transform__ are set, they will be used as the default values of the instance.
+Converts the result to lowercase.
 
-- __separator__, defaults to `'-'`
-- __transform__, defaults to `'lowercase'`
+#### urlSlug.transformers.uppercase
 
-### Builtin transformers
+Converts the result to uppercase.
 
-- __UrlSlug.transformers.lowercase__ — lower case
-- __UrlSlug.transformers.uppercase__ — UPPER CASE
-- __UrlSlug.transformers.titlecase__ — Title Case
+#### urlSlug.transformers.titlecase
 
-## TODO
+Converts the result to title case.
 
-- Keep specific characters setting
+## License
+
+[The MIT License](./LICENSE)
