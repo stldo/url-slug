@@ -172,6 +172,15 @@ describe('module', () => {
           .to.be.equal('Rct')
       })
 
+      it('should handle empty strings', () => {
+        expect(instance.convert(''))
+          .to.be.equal('')
+      })
+
+      it('should handle strings with no alphanumeric characters', () => {
+        expect(instance.convert('- ( ) [ ]'))
+          .to.be.equal('')
+      })
     })
 
     describe('revert', () => {

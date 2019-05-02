@@ -116,6 +116,9 @@ class UrlSlug {
     } = parseOptions(options)
 
     const fragments = unidecode(String(string)).match(NORMALIZE)
+    if (!fragments) {
+        return ''
+    }
 
     return transformer
       ? transformer(fragments, separator)
