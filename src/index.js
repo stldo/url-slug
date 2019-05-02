@@ -117,7 +117,7 @@ class UrlSlug {
 
     const fragments = unidecode(String(string)).match(NORMALIZE)
     if (!fragments) {
-        return ''
+      return ''
     }
 
     return transformer
@@ -142,6 +142,10 @@ class UrlSlug {
       fragments = slug.split(separator)
     } else {
       fragments = slug.match(REVERT_UNKNOWN)
+    }
+
+    if (!fragments) {
+      return ''
     }
 
     return transformer ? transformer(fragments, ' ') : fragments.join(' ')

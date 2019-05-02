@@ -208,6 +208,11 @@ describe('module', () => {
           .to.be.equal('Comfortably Numb')
       })
 
+      it('should empty strings revert to another empty string', () => {
+        expect(instance.revert(''))
+          .to.be.equal('')
+      })
+
     })
 
   })
