@@ -172,6 +172,15 @@ describe('module', () => {
           .to.be.equal('Rct')
       })
 
+      it('should handle empty strings', () => {
+        expect(instance.convert(''))
+          .to.be.equal('')
+      })
+
+      it('should handle strings with no alphanumeric characters', () => {
+        expect(instance.convert('- ( ) [ ]'))
+          .to.be.equal('')
+      })
     })
 
     describe('revert', () => {
@@ -197,6 +206,11 @@ describe('module', () => {
       it('should return the title of a Pink Floyd track', () => {
         expect(instance.revert('comfortably-._~numb', '-._~', 'titlecase'))
           .to.be.equal('Comfortably Numb')
+      })
+
+      it('should empty strings revert to another empty string', () => {
+        expect(instance.revert(''))
+          .to.be.equal('')
       })
 
     })
