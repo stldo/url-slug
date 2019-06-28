@@ -26,9 +26,11 @@
   "repository": "https://github.com/stldo/url-slug",
   "keywords": [
     "slug",
-    "slugs",
     "slugify",
     "url",
+    "urlify",
+    "url-safe",
+    "rfc 3986",
     "string",
     "seo"
   ],
