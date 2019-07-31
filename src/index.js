@@ -1,7 +1,7 @@
 const unidecode = require('unidecode')
 
-/* TODO v2.2
-* - Remove support for transformers represented by strings ('uppercase', etc.)
+/* TODO v2.3
+* - Deprecate transformers represented by strings ('uppercase', etc.)
 */
 
 /* TODO v3
@@ -44,27 +44,27 @@ function parseOptions(options) {
 
   if (2 === options.length) {
     [separator, transformer] = options
-    if (defaultTransformers[transformer]) {
-      transformer = defaultTransformers[transformer] /* Don't validate */
-      validate({ separator })
-    } else {
-      validate({ separator, transformer })
-    }
+    validate({ separator, transformer })
   } else if (1 === options.length) {
     const option = options[0]
     if (false === option || 'function' === typeof option) {
       transformer = option /* Don't validate */
     } else if (defaultTransformers[option]) {
-      transformer = defaultTransformers[option] /* Don't validate */
-    } else if (option == null || typeof option === 'string') {
+      transformer = option
+      validate({ transformer }) /* Show deprecation warning */
+    } else if (typeof option === 'string') {
       separator = option
       validate({ separator })
-    } else {
+    } else if (option != null) {
       camelCase = option.camelCase
       separator = option.separator
       transformer = option.transformer
       validate({ camelCase, separator, transformer })
     }
+  }
+
+  if (defaultTransformers[transformer]) { /* Deprecate in v2.3.0 */
+    transformer = defaultTransformers[transformer]
   }
 
   return {
@@ -93,11 +93,15 @@ function validate({ camelCase, separator, transformer }) {
   }
 
   if (transformer != null) {
-    if (false !== transformer
-      && 'function' !== typeof transformer
-      && !defaultTransformers[transformer] /* TODO Deprecate */
-    ) {
-      throw new Error(`transformer must be a function: "${transformer}".`)
+    if (transformer !== false && typeof transformer !== 'function') {
+      if (typeof transformer === 'string' && defaultTransformers[transformer]) {
+        console.warn(
+          '\x1b[33m[DEPRECATION WARNING]\x1b[0m Using transformer name ' +
+          'strings will be deprecated in v2.3.0'
+        )
+      } else {
+        throw new Error(`transformer must be a function: "${transformer}".`)
+      }
     }
   }
 }

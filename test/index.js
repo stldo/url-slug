@@ -1,4 +1,6 @@
 const expect = require('chai').expect
+const sinon = require('sinon')
+
 const urlSlug = require('../src/index')
 
 describe('module', () => {
@@ -140,6 +142,14 @@ describe('validate', () => {
       expect(() => new urlSlug.UrlSlug({ transformer: {} }))
       .to.throw('transformer must be a function')
   })
+
+  it('shows a deprecation warning message for tranformer strings', () => {
+    sinon.stub(console, 'warn')
+    new urlSlug.UrlSlug({ transformer: 'uppercase' })
+    expect(console.warn.getCall(0).args[0])
+      .to.be.string('DEPRECATION WARNING')
+    console.warn.restore()
+  })
 })
 
 describe('convert', () => {
@@ -166,12 +176,12 @@ describe('convert', () => {
   })
 
   it('uses upper case as transformer and use the default separator', () => {
-    expect(urlSlug.convert('a bronx tale', 'uppercase'))
+    expect(urlSlug.convert('a bronx tale', urlSlug.transformers.uppercase))
       .to.be.equal('A-BRONX-TALE')
   })
 
   it('uses underscore as separator and title case as transformer', () => {
-    expect(urlSlug.convert('tom jobim', '_', 'titlecase'))
+    expect(urlSlug.convert('tom jobim', '_', urlSlug.transformers.titlecase))
       .to.be.equal('Tom_Jobim')
   })
 
@@ -181,7 +191,7 @@ describe('convert', () => {
   })
 
   it('returns a camel case slug', () => {
-    expect(urlSlug.convert('java script', '', 'titlecase'))
+    expect(urlSlug.convert('java script', '', urlSlug.transformers.titlecase))
       .to.be.equal('JavaScript')
   })
 
@@ -253,12 +263,14 @@ describe('revert', () => {
   })
 
   it('splits on camel case and convert input to upper case', () => {
-    expect(urlSlug.revert('ClaudioBaglioni_is-Italian', '', 'uppercase'))
-      .to.be.equal('CLAUDIO BAGLIONI_IS-ITALIAN')
+    const slug = 'ClaudioBaglioni_is-NOT-German'
+    expect(urlSlug.revert(slug, '', urlSlug.transformers.uppercase))
+      .to.be.equal('CLAUDIO BAGLIONI_IS-NOT-GERMAN')
   })
 
   it('returns the title of a Pink Floyd track', () => {
-    expect(urlSlug.revert('comfortably-._~numb', '-._~', 'titlecase'))
+    const slug = 'comfortably-._~numb'
+    expect(urlSlug.revert(slug, '-._~', urlSlug.transformers.titlecase))
       .to.be.equal('Comfortably Numb')
   })
 
