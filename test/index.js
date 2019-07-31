@@ -133,7 +133,7 @@ describe('instance', () => {
         .to.be.equal('Charly-._~-._~Garcia')
     })
 
-    it('returns a camel case string', () => {
+    it('returns a camel case slug', () => {
       expect(instance.convert('java script', '', 'titlecase'))
         .to.be.equal('JavaScript')
     })
@@ -141,6 +141,16 @@ describe('instance', () => {
     it('splits a camel case string', () => {
       expect(instance.convert('javaScript'))
         .to.be.equal('java-script')
+      expect(instance.convert('javaSCRIPT', null, null))
+        .to.be.equal('java-SCRIPT')
+      expect(instance.convert('JAVAScript', null, null))
+        .to.be.equal('JAVA-Script')
+      expect(instance.convert('jaVAScriPT', null, null))
+        .to.be.equal('ja-VA-Scri-PT')
+      expect(instance.convert('JaVaScriPt', null, null))
+        .to.be.equal('Ja-Va-Scri-Pt')
+      expect(instance.convert('JaVaScrIpT', null, null))
+        .to.be.equal('Ja-Va-Scr-Ip-T')
     })
 
     it('returns only consonants', () => {
@@ -171,6 +181,21 @@ describe('instance', () => {
     it('uses unknown reversion and maintain input case', () => {
       expect(instance.revert('UrlSlug-_url.~slug'))
         .to.be.equal('Url Slug url slug')
+    })
+
+    it('reverts a camel case slug', () => {
+      expect(instance.revert('javaScript'))
+        .to.be.equal('java Script')
+      expect(instance.revert('javaSCRIPT', ''))
+        .to.be.equal('java SCRIPT')
+      expect(instance.revert('JAVAScript', ''))
+        .to.be.equal('JAVA Script')
+      expect(instance.revert('jaVAScriPT', ''))
+        .to.be.equal('ja VA Scri PT')
+      expect(instance.revert('JaVaScriPt', ''))
+        .to.be.equal('Ja Va Scri Pt')
+      expect(instance.revert('JaVaScrIpT', ''))
+        .to.be.equal('Ja Va Scr Ip T')
     })
 
     it('splits on camel case and convert input to upper case', () => {
