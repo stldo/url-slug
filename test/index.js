@@ -59,46 +59,46 @@ describe('instance', () => {
 
   describe('options', () => {
     it('does not accept a separator that is not a string', () => {
-      expect(instance.convert.bind(instance, '', 123))
-        .to.throw(/^The separator must be a string/)
+      expect(() => instance.convert('', 123))
+        .to.throw('separator must be a string')
     })
 
     it('accepts unreserved characters in RFC 3986 as separator', () => {
-      expect(instance.convert.bind(instance, '', '-._~'))
-        .to.not.throw(/^The separator has invalid characters/)
+      expect(() => instance.convert('', '-._~'))
+        .to.not.throw()
     })
 
     it('does not accept separators not defined as unreserved character', () => {
-      expect(instance.convert.bind(instance, '', '+'))
-        .to.throw(/^The separator has invalid characters/)
+      expect(() => instance.convert('', '+'))
+        .to.throw('separator has invalid characters')
     })
 
     it('accepts false as a transformer', () => {
-      expect(instance.convert.bind(instance, '', '', false))
-        .to.not.throw(/^The transformer must be a function/)
+      expect(() => instance.convert('', '', false))
+        .to.not.throw()
     })
 
     it('accepts all builtin presets as a transformer', () => {
-      expect(instance.convert.bind(instance, '', '', instance.lowercase))
-        .to.not.throw(/^The transformer must be a function/)
-      expect(instance.convert.bind(instance, '', '', instance.uppercase))
-        .to.not.throw(/^The transformer must be a function/)
-      expect(instance.convert.bind(instance, '', '', instance.titlecase))
-        .to.not.throw(/^The transformer must be a function/)
+      expect(() => instance.convert('', '', instance.lowercase))
+        .to.not.throw()
+      expect(() => instance.convert('', '', instance.uppercase))
+        .to.not.throw()
+      expect(() => instance.convert('', '', instance.titlecase))
+        .to.not.throw()
     })
 
     it('accepts a function as a transformer', () => {
-      expect(instance.convert.bind(instance, '', () => {}))
-        .to.not.throw(/^The transformer must be a function/)
+      expect(() => instance.convert('', () => {}))
+        .to.not.throw()
     })
 
     it('accepts false, a function or a builtin preset as a transformer', () => {
-      expect(instance.convert.bind(instance, '', '', true))
-        .to.throw(/^The transformer must be a function/)
-      expect(instance.convert.bind(instance, '', '', 'nonexistent'))
-        .to.throw(/^The transformer must be a function/)
-      expect(instance.convert.bind(instance, '', '', {}))
-        .to.throw(/^The transformer must be a function/)
+      expect(() => instance.convert('', '', true))
+        .to.throw('transformer must be a function')
+      expect(() => instance.convert('', '', 'nonexistent'))
+        .to.throw('transformer must be a function')
+      expect(() => instance.convert('', '', {}))
+        .to.throw('transformer must be a function')
     })
   })
 
