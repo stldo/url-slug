@@ -91,6 +91,8 @@ describe('validate', () => {
   it('accepts only boolean values in camelCase option', () => {
     expect(() => new urlSlug.UrlSlug({ camelCase: true }))
      .to.not.throw()
+     expect(() => new urlSlug.UrlSlug({ camelCase: false }))
+      .to.not.throw()
     expect(() => new urlSlug.UrlSlug({ camelCase: null }))
      .to.throw('camelCase must be a boolean')
   })
@@ -210,6 +212,11 @@ describe('convert', () => {
       .to.be.equal('Ja-Va-Scr-Ip-T')
   })
 
+  it('does not split a camel case string', () => {
+    expect(urlSlug.convert('javaScript', { camelCase: false }))
+      .to.be.equal('javascript')
+  })
+
   it('returns only consonants', () => {
     const transform = (fragments, separator) => fragments
       .join(separator)
@@ -247,7 +254,7 @@ describe('revert', () => {
       .to.be.equal('Url Slug url slug')
   })
 
-  it('reverts a camel case slug', () => {
+  it('splits a camel case slug', () => {
     expect(urlSlug.revert('javaScript'))
       .to.be.equal('java Script')
     expect(urlSlug.revert('javaSCRIPT', ''))
@@ -260,6 +267,11 @@ describe('revert', () => {
       .to.be.equal('Ja Va Scri Pt')
     expect(urlSlug.revert('JaVaScrIpT', ''))
       .to.be.equal('Ja Va Scr Ip T')
+  })
+
+  it('does not split a camel case slug', () => {
+    expect(urlSlug.convert('javaScript', { camelCase: false }))
+      .to.be.equal('javascript')
   })
 
   it('splits on camel case and convert input to upper case', () => {

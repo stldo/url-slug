@@ -26,8 +26,8 @@ const unidecode = require('unidecode')
  */
 
 const INVALID_SEPARATOR = /[^-._~]/
-// const CONVERT = /[A-Za-z\d]+/g
-// const REVERT = /[^-._~]+/g
+const CONVERT = /[A-Za-z\d]+/g
+const REVERT = /[^-._~]+/g
 
 const BASE = '(?:[a-z](?=[A-Z])|[A-Z](?=[A-Z][a-z]))'
 const CONVERT_CAMELCASE = new RegExp(`[A-Za-z0-9]*?${BASE}|[A-Za-z0-9]+`, 'g')
@@ -142,11 +142,13 @@ class UrlSlug {
   */
   convert(string, ...options) {
     const {
+      camelCase = this.camelCase,
       separator = this.separator,
       transformer = this.transformer,
     } = parseOptions(options)
 
-    const fragments = unidecode(String(string)).match(CONVERT_CAMELCASE)
+    const fragments = unidecode(String(string))
+      .match(camelCase ? CONVERT_CAMELCASE : CONVERT)
 
     if (!fragments) {
       return ''
@@ -161,7 +163,11 @@ class UrlSlug {
   * Reverts a slug back to a string
   */
   revert(slug, ...options) {
-    const { separator = null, transformer = false } = parseOptions(options)
+    const {
+      camelCase = this.camelCase,
+      separator = null,
+      transformer = false
+    } = parseOptions(options)
 
     let fragments
     slug = String(slug)
@@ -173,7 +179,7 @@ class UrlSlug {
     } else if ('string' === typeof separator) {
       fragments = slug.split(separator)
     } else {
-      fragments = slug.match(REVERT_CAMELCASE)
+      fragments = slug.match(camelCase ? REVERT_CAMELCASE : REVERT)
     }
 
     if (!fragments) {
@@ -186,9 +192,9 @@ class UrlSlug {
 }
 
 /**
-* Builtin transformers // TODO Deprecate
+* Builtin transformers
 */
-const defaultTransformers = {
+const defaultTransformers = { /* TODO Deprecate in v3 */
   lowercase: UrlSlug.LOWERCASE_TRANSFORMER,
   uppercase: UrlSlug.UPPERCASE_TRANSFORMER,
   titlecase: UrlSlug.TITLECASE_TRANSFORMER,
@@ -202,6 +208,6 @@ const global = urlSlug.convert.bind(urlSlug)
 global.UrlSlug = UrlSlug
 global.convert = global
 global.revert = urlSlug.revert.bind(urlSlug)
-global.transformers = defaultTransformers // TODO Deprecate
+global.transformers = defaultTransformers /* TODO Deprecate in v3 */
 
 module.exports = global
