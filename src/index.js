@@ -57,7 +57,7 @@ function parseOptions(options) {
     }
   }
 
-  return { separator, transformer }
+  return { separator: separator == null ? void 0 : separator, transformer }
 }
 
 /**

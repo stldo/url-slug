@@ -31,6 +31,8 @@ describe('instance', () => {
   it('uses "-" as default separator', () => {
     expect(instance.separator)
       .to.be.equal('-')
+    expect(instance.separator, null)
+      .to.be.equal('-')
   })
 
   it('sets "lowercase" as default transformer', () => {
