@@ -24,9 +24,11 @@ const unidecode = require('unidecode')
  */
 
 const INVALID_SEPARATOR = /[^-._~]/
-const NORMALIZE = /[A-Za-z0-9]*?[a-z](?=[A-Z])|[A-Za-z0-9]+/g
-const REVERT_CAMELCASE = /.*?[a-z](?=[A-Z])|.+/g
-const REVERT_UNKNOWN = /[^-._~]*?[a-z](?=[A-Z])|[^-._~]+/g
+
+const BASE = '(?:[a-z](?=[A-Z])|[A-Z](?=[A-Z][a-z]))'
+const CONVERT_CAMELCASE = new RegExp(`[A-Za-z0-9]*?${BASE}|[A-Za-z0-9]+`, 'g')
+const REVERT_CAMELCASE = new RegExp(`.*?${BASE}|.+`, 'g')
+const REVERT_UNKNOWN = new RegExp(`[^-._~]*?${BASE}|[^-._~]+`, 'g')
 
 /**
 * Check and return validated options
@@ -115,7 +117,8 @@ class UrlSlug {
       transformer = this.transformer,
     } = parseOptions(options)
 
-    const fragments = unidecode(String(string)).match(NORMALIZE)
+    const fragments = unidecode(String(string)).match(CONVERT_CAMELCASE)
+
     if (!fragments) {
       return ''
     }
