@@ -1,13 +1,15 @@
 const unidecode = require('unidecode')
 
 /* TODO v2.2
- * - Remove support for transformers represented by strings ('uppercase', etc.)
- */
+* - Remove support for transformers represented by strings ('uppercase', etc.)
+*/
 
 /* TODO v3
+ * - Set default transformers as exports
  * - ESM with multiple exports
  * - Deprecate defaultTransformers
  * - Deprecate parseOptions, use a config object instead
+ * - Deprecate null as separator
  * - Add support to NFKD normalize, make unidecode an option (full?)
  * - Browser support
  * - Add sentence case transformer
@@ -24,16 +26,19 @@ const unidecode = require('unidecode')
  */
 
 const INVALID_SEPARATOR = /[^-._~]/
+// const CONVERT = /[A-Za-z\d]+/g
+// const REVERT = /[^-._~]+/g
 
 const BASE = '(?:[a-z](?=[A-Z])|[A-Z](?=[A-Z][a-z]))'
 const CONVERT_CAMELCASE = new RegExp(`[A-Za-z0-9]*?${BASE}|[A-Za-z0-9]+`, 'g')
-const REVERT_CAMELCASE = new RegExp(`.*?${BASE}|.+`, 'g')
-const REVERT_UNKNOWN = new RegExp(`[^-._~]*?${BASE}|[^-._~]+`, 'g')
+const REVERT_CAMELCASE = new RegExp(`[^-._~]*?${BASE}|[^-._~]+`, 'g')
+const REVERT_CAMELCASE_WITH_EMPTY_SEPARATOR = new RegExp(`.*?${BASE}|.+`, 'g')
 
 /**
 * Check and return validated options
 */
 function parseOptions(options) {
+  let camelCase
   let separator
   let transformer
 
@@ -51,34 +56,48 @@ function parseOptions(options) {
       transformer = option /* Don't validate */
     } else if (defaultTransformers[option]) {
       transformer = defaultTransformers[option] /* Don't validate */
-    } else {
+    } else if (option == null || typeof option === 'string') {
       separator = option
       validate({ separator })
+    } else {
+      camelCase = option.camelCase
+      separator = option.separator
+      transformer = option.transformer
+      validate({ camelCase, separator, transformer })
     }
   }
 
-  return { separator: separator == null ? void 0 : separator, transformer }
+  return {
+    camelCase,
+    separator: separator == null ? void 0 : separator,
+    transformer
+  }
 }
 
 /**
 * Validate options
 */
-function validate({ separator, transformer }) {
-  /* separator */
-  if (null != separator) {
-    if ('string' !== typeof separator) {
-      throw new Error(`The separator must be a string: "${separator}".`)
-    } else if (INVALID_SEPARATOR.test(separator)) {
-      throw new Error(`The separator has invalid characters: "${separator}".`)
+function validate({ camelCase, separator, transformer }) {
+  if (camelCase !== undefined) {
+    if (typeof camelCase !== 'boolean') {
+      throw new Error(`camelCase must be a boolean: "${camelCase}".`)
     }
   }
-  /* transformer */
-  if (null != transformer) {
+
+  if (separator != null) {
+    if ('string' !== typeof separator) {
+      throw new Error(`separator must be a string: "${separator}".`)
+    } else if (INVALID_SEPARATOR.test(separator)) {
+      throw new Error(`separator has invalid characters: "${separator}".`)
+    }
+  }
+
+  if (transformer != null) {
     if (false !== transformer
       && 'function' !== typeof transformer
       && !defaultTransformers[transformer] /* TODO Deprecate */
     ) {
-      throw new Error(`The transformer must be a function: "${transformer}".`)
+      throw new Error(`transformer must be a function: "${transformer}".`)
     }
   }
 }
@@ -102,10 +121,16 @@ class UrlSlug {
   /**
   * Creates a new instance of url-slug
   */
-  constructor(separator = '-', transformer = UrlSlug.LOWERCASE_TRANSFORMER) {
-    const options = parseOptions([separator, transformer])
-    this.separator = options.separator
-    this.transformer = options.transformer
+  constructor(...options) {
+    const {
+      camelCase = true,
+      separator = '-',
+      transformer = UrlSlug.LOWERCASE_TRANSFORMER
+    } = parseOptions(options)
+
+    this.camelCase = camelCase
+    this.separator = separator
+    this.transformer = transformer
   }
 
   /**
@@ -140,11 +165,11 @@ class UrlSlug {
     /* Determine which method will be used split the slug */
 
     if ('' === separator) {
-      fragments = slug.match(REVERT_CAMELCASE)
+      fragments = slug.match(REVERT_CAMELCASE_WITH_EMPTY_SEPARATOR)
     } else if ('string' === typeof separator) {
       fragments = slug.split(separator)
     } else {
-      fragments = slug.match(REVERT_UNKNOWN)
+      fragments = slug.match(REVERT_CAMELCASE)
     }
 
     if (!fragments) {
