@@ -164,7 +164,7 @@ class UrlSlug {
   */
   revert(slug, ...options) {
     const {
-      camelCase = this.camelCase,
+      camelCase = false,
       separator = null,
       transformer = false
     } = parseOptions(options)
