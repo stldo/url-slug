@@ -180,20 +180,53 @@ describe('convert', () => {
   it('uses upper case as transformer and use the default separator', () => {
     expect(urlSlug.convert('a bronx tale', urlSlug.transformers.uppercase))
       .to.be.equal('A-BRONX-TALE')
+  }) // TODO v3 deprecate
+
+  it('uses upper case as transformer and use the default separator', () => {
+    const options = { transformer: urlSlug.transformers.uppercase }
+    expect(urlSlug.convert('a bronx tale', options))
+      .to.be.equal('A-BRONX-TALE')
   })
 
   it('uses underscore as separator and title case as transformer', () => {
     expect(urlSlug.convert('tom jobim', '_', urlSlug.transformers.titlecase))
+      .to.be.equal('Tom_Jobim')
+  }) // TODO v3 deprecate
+
+  it('uses underscore as separator and title case as transformer', () => {
+    const options = {
+      separator: '_',
+      transformer: urlSlug.transformers.titlecase
+    }
+    expect(urlSlug.convert('tom jobim', options))
       .to.be.equal('Tom_Jobim')
   })
 
   it('allows multiple characters as separator and maintains the case', () => {
     expect(urlSlug.convert('Charly García', '-._~-._~', false))
       .to.be.equal('Charly-._~-._~Garcia')
+  }) // TODO v3 deprecate
+
+  it('allows multiple characters as separator and maintains the case', () => {
+    const options = {
+      separator: '-._~-._~',
+      transformer: false
+    }
+    expect(urlSlug.convert('Charly García', options))
+      .to.be.equal('Charly-._~-._~Garcia')
   })
 
   it('returns a camel case slug', () => {
     expect(urlSlug.convert('java script', '', urlSlug.transformers.titlecase))
+      .to.be.equal('JavaScript')
+  }) // TODO v3 deprecate
+
+  it('returns a camel case slug', () => {
+    const options = {
+      separator: '',
+      transformer: urlSlug.transformers.titlecase
+    }
+    expect(urlSlug.convert('java script', options))
       .to.be.equal('JavaScript')
   })
 
@@ -210,6 +243,22 @@ describe('convert', () => {
       .to.be.equal('Ja-Va-Scri-Pt')
     expect(urlSlug.convert('JaVaScrIpT', null, null))
       .to.be.equal('Ja-Va-Scr-Ip-T')
+  }) // TODO v3 deprecate
+
+  it('splits a camel case string', () => {
+    const options = { separator: null, transformer: null }
+    expect(urlSlug.convert('javaScript'))
+      .to.be.equal('java-script')
+    expect(urlSlug.convert('javaSCRIPT', options))
+      .to.be.equal('java-SCRIPT')
+    expect(urlSlug.convert('JAVAScript', options))
+      .to.be.equal('JAVA-Script')
+    expect(urlSlug.convert('jaVAScriPT', options))
+      .to.be.equal('ja-VA-Scri-PT')
+    expect(urlSlug.convert('JaVaScriPt', options))
+      .to.be.equal('Ja-Va-Scri-Pt')
+    expect(urlSlug.convert('JaVaScrIpT', options))
+      .to.be.equal('Ja-Va-Scr-Ip-T')
   })
 
   it('does not split a camel case string', () => {
@@ -222,6 +271,17 @@ describe('convert', () => {
       .join(separator)
       .replace(/[aeiou]/gi, '')
     expect(urlSlug.convert('React', '', transform))
+      .to.be.equal('Rct')
+  }) // TODO v3 deprecate
+
+  it('returns only consonants', () => {
+    const options = {
+      separator: '',
+      transformer: (fragments, separator) => fragments
+        .join(separator)
+        .replace(/[aeiou]/gi, '')
+    }
+    expect(urlSlug.convert('React', options))
       .to.be.equal('Rct')
   })
 
@@ -249,40 +309,58 @@ describe('revert', () => {
       .to.be.equal('123')
   })
 
-  it('uses unknown reversion and maintain input case', () => {
+  it('uses unknown reversion and does not change input case', () => {
     expect(urlSlug.revert('UrlSlug-_url.~slug'))
-      .to.be.equal('Url Slug url slug')
+      .to.be.equal('UrlSlug url slug')
   })
 
   it('splits a camel case slug', () => {
-    expect(urlSlug.revert('javaScript'))
+    expect(urlSlug.revert('javaScript', { camelCase: true }))
       .to.be.equal('java Script')
-    expect(urlSlug.revert('javaSCRIPT', ''))
+    expect(urlSlug.revert('javaSCRIPT', { camelCase: true }))
       .to.be.equal('java SCRIPT')
-    expect(urlSlug.revert('JAVAScript', ''))
+    expect(urlSlug.revert('JAVAScript', { camelCase: true }))
       .to.be.equal('JAVA Script')
-    expect(urlSlug.revert('jaVAScriPT', ''))
+    expect(urlSlug.revert('jaVAScriPT', { camelCase: true }))
       .to.be.equal('ja VA Scri PT')
-    expect(urlSlug.revert('JaVaScriPt', ''))
+    expect(urlSlug.revert('JaVaScriPt', { camelCase: true }))
       .to.be.equal('Ja Va Scri Pt')
-    expect(urlSlug.revert('JaVaScrIpT', ''))
+    expect(urlSlug.revert('JaVaScrIpT', { camelCase: true }))
       .to.be.equal('Ja Va Scr Ip T')
   })
 
   it('does not split a camel case slug', () => {
-    expect(urlSlug.convert('javaScript', { camelCase: false }))
-      .to.be.equal('javascript')
+    expect(urlSlug.revert('javaScript-language'))
+      .to.be.equal('javaScript language')
   })
 
   it('splits on camel case and convert input to upper case', () => {
     const slug = 'ClaudioBaglioni_is-NOT-German'
     expect(urlSlug.revert(slug, '', urlSlug.transformers.uppercase))
       .to.be.equal('CLAUDIO BAGLIONI_IS-NOT-GERMAN')
+  }) // TODO v3 deprecate
+
+  it('splits on camel case and convert input to upper case', () => {
+    const options = {
+      separator: '',
+      transformer: urlSlug.transformers.uppercase
+    }
+    expect(urlSlug.revert('ClaudioBaglioni_is-NOT-German', options))
+      .to.be.equal('CLAUDIO BAGLIONI_IS-NOT-GERMAN')
   })
 
   it('returns the title of a Pink Floyd track', () => {
     const slug = 'comfortably-._~numb'
     expect(urlSlug.revert(slug, '-._~', urlSlug.transformers.titlecase))
+      .to.be.equal('Comfortably Numb')
+  }) // TODO v3 deprecate
+
+  it('returns the title of a Pink Floyd track', () => {
+    const options = {
+      separator: '-._~',
+      transformer: urlSlug.transformers.titlecase
+    }
+    expect(urlSlug.revert('comfortably-._~numb', options))
       .to.be.equal('Comfortably Numb')
   })
 
