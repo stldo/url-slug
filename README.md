@@ -5,7 +5,7 @@ RFC 3986 compliant slug generator with multiple language support. It creates slu
 ## Install
 
 ```bash
-$ npm install --save url-slug
+$ npm install url-slug
 ```
 
 ## Usage
@@ -19,7 +19,48 @@ urlSlug('Sir James Paul McCartney MBE is an English singer-songwriter')
 
 ## Documentation
 
+### urlSlug(string, [options]), urlSlug.convert(string, [options])
+
+Returns the __string__ value converted to a slug.
+
+#### string
+
+The string that'll be converted.
+
+#### options
+
+| Name | Description | Default |
+| --- | --- | --- |
+| camelCase | Split camel case occurrences | `true` |
+| separator | Character to split the string: `'-'`, `'.'`, `'_'`, `'~'` or `''` | '-' |
+| transformer | A built-in transformer or a custom function (set to `false` to keep the string unchanged) | `urlSlug.transformers.lowercase` |
+
+#### Examples
+
+```javascript
+import urlSlug from 'url-slug'
+
+urlSlug('Comfortably Numb', {
+  transformer: urlSlug.transformers.uppercase
+})
+// COMFORTABLY-NUMB
+
+urlSlug('á é í ó ú Á É Í Ó Ú ç Ç æ Æ œ Œ ® © € ¥ ª º ¹ ² ½ ¼', {
+  separator: '_',
+  transformer: false
+})
+// a_e_i_o_u_A_E_I_O_U_c_C_ae_AE_oe_OE_r_c_EU_Y_a_o_1_2_1_2_1_4
+
+urlSlug('Red, red wine, stay close to me…', {
+  separator: '',
+  transformer: urlSlug.transformers.titlecase
+})
+// RedRedWineStayCloseToMe
+```
+
 ### urlSlug(string, [separator], [transformer]), urlSlug.convert(string, [separator], [transformer])
+
+> ⚠️ __Warning__: This syntax will be deprecated
 
 Returns the __string__ value converted to a slug.
 
@@ -41,7 +82,7 @@ Type: `function` or `false`
 
 A function that receives the slug fragments and the current separator as arguments. It must return the slug string. Defaults to the built-in transformer `urlSlug.transformers.lowercase`. It can be set to `false` if no transformation is desirable.
 
-#### Example
+#### Examples
 
 ```javascript
 import urlSlug from 'url-slug'
@@ -56,9 +97,42 @@ urlSlug('Red, red wine, stay close to me…', '', urlSlug.transformers.titlecase
 // RedRedWineStayCloseToMe
 ```
 
+### urlSlug.revert(slug, [options])
+
+Returns the __slug__ value converted to a regular string.
+
+#### slug
+
+The slug that'll be reverted.
+
+#### options
+
+| Name | Description | Default |
+| --- | --- | --- |
+| camelCase | Split camel case occurrences | `false` |
+| separator | Character to split the string: `'-'`, `'.'`, `'_'`, `'~'` or `''` (set to `null` to use all characters) | `null` |
+| transformer | A built-in transformer or a custom function (set to `false` to keep the string unchanged) | `false` |
+
+#### Examples
+
+```javascript
+import urlSlug from 'url-slug'
+
+urlSlug.revert('Replace-every_separator.allowed~andSplitCamelCaseToo')
+// Replace every separator allowed and Split Camel Case Too
+
+urlSlug.revert('this-title-needs-a-title_case', {
+  separator: '-',
+  transformer: urlSlug.transformers.titlecase
+})
+// This Title Needs A Title_case
+```
+
 ### urlSlug.revert(slug, [separator], [transformer])
 
-Returns the __slug__ value converted to a human readable string.
+> ⚠️ __Warning__: This syntax will be deprecated
+
+Returns the __slug__ value converted to a regular string.
 
 #### slug
 
@@ -78,7 +152,7 @@ Type: `function` or `false`
 
 A function that receives the string fragments and the current separator as arguments. Defaults to `false`, which means that no transformation will be made.
 
-#### Example
+#### Examples
 
 ```javascript
 import urlSlug from 'url-slug'
@@ -96,6 +170,8 @@ urlSlug.revert(
 
 ### urlSlug.UrlSlug([separator], [transformer])
 
+> ⚠️ __Warning__: This syntax will be deprecated
+
 `url-slug` constructor, useful if you want to create more instances. If `separator` or `transform` are set, they will the default values of the instance.
 
 #### separator
@@ -110,7 +186,7 @@ Type: `function` or `false`
 
 Defaults to `urlSlug.transformers.lowercase`. Can be set to a function or `false`, if no transformation is desired.
 
-#### Example
+#### Examples
 
 ```javascript
 import urlSlug from 'url-slug'
@@ -125,7 +201,7 @@ urlSlugInstance.convert('Listen to Fito Páez in Madrid')
 
 Custom transformers are expressed by a function which receives two arguments, __fragments__, an array with the resulting words of the conversion, and __separator__, the current separator string used to join the words. On revert, the __separator__ will always be a space character (`' '`). Transformers should always return a string.
 
-#### Example
+#### Examples
 
 ```javascript
 import urlSlug from 'url-slug'
