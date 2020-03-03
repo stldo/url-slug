@@ -1,5 +1,11 @@
 {
   "presets": [
-    ["@babel/preset-env", { "targets": { "node": "4" } }]
+    ["@babel/preset-env", {
+      "targets": {
+        "node": "4",
+        "chrome": "58",
+        "ie": "11"
+      }
+    }]
   ]
 }
