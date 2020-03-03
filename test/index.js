@@ -1,5 +1,4 @@
 const expect = require('chai').expect
-const sinon = require('sinon')
 
 const urlSlug = require('../src/index')
 
@@ -139,19 +138,16 @@ describe('validate', () => {
   it('accepts only false or a function as a transformer', () => {
     expect(() => new urlSlug.UrlSlug({ transformer: true }))
       .to.throw('transformer must be a function')
-      expect(() => new urlSlug.UrlSlug({ transformer: 'string' }))
+    expect(() => new urlSlug.UrlSlug({ transformer: 'string' }))
       .to.throw('transformer must be a function')
-      expect(() => new urlSlug.UrlSlug({ transformer: {} }))
+    expect(() => new urlSlug.UrlSlug({ transformer: {} }))
       .to.throw('transformer must be a function')
   })
 
-  it('shows a deprecation warning message for tranformer strings', () => {
-    sinon.stub(console, 'warn')
-    new urlSlug.UrlSlug({ transformer: 'uppercase' })
-    expect(console.warn.getCall(0).args[0])
-      .to.be.string('DEPRECATION WARNING')
-    console.warn.restore()
-  })
+  it('throws a deprecation error for tranformer strings', () => {
+    expect(() => new urlSlug.UrlSlug({ transformer: 'uppercase' }))
+      .to.throw('Using transformer name as string was deprecated')
+  }) // TODO Remove in v3
 })
 
 describe('convert', () => {

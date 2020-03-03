@@ -1,9 +1,5 @@
 const unidecode = require('unidecode')
 
-/* TODO v2.3
-* - Deprecate transformers represented by strings ('uppercase', etc.)
-*/
-
 /* TODO v3
  * - Set default transformers as exports
  * - ESM with multiple exports
@@ -49,9 +45,9 @@ function parseOptions(options) {
     const option = options[0]
     if (false === option || 'function' === typeof option) {
       transformer = option /* Don't validate */
-    } else if (defaultTransformers[option]) {
+    } else if (defaultTransformers[option]) { /* TODO Remove in v3 */
       transformer = option
-      validate({ transformer }) /* Show deprecation warning */
+      validate({ transformer }) /* Throw deprecation error */
     } else if (typeof option === 'string') {
       separator = option
       validate({ separator })
@@ -63,7 +59,7 @@ function parseOptions(options) {
     }
   }
 
-  if (defaultTransformers[transformer]) { /* Deprecate in v2.3.0 */
+  if (defaultTransformers[transformer]) { /* Remove in v3.0.0 */
     transformer = defaultTransformers[transformer]
   }
 
@@ -95,10 +91,8 @@ function validate({ camelCase, separator, transformer }) {
   if (transformer != null) {
     if (transformer !== false && typeof transformer !== 'function') {
       if (typeof transformer === 'string' && defaultTransformers[transformer]) {
-        console.warn(
-          '\x1b[33m[DEPRECATION WARNING]\x1b[0m Using transformer name ' +
-          'strings will be deprecated in v2.3.0'
-        )
+        throw new Error('Using transformer name as string was deprecated')
+         /* TODO Remove in v3 */
       } else {
         throw new Error(`transformer must be a function: "${transformer}".`)
       }
