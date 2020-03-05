@@ -11,9 +11,6 @@
     "test": "./node_modules/.bin/mocha --require @babel/register test",
     "watch": "./node_modules/.bin/babel -w src --out-dir ."
   },
-  "dependencies": {
-    "unidecode": "^0.1.8"
-  },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.6",
