@@ -1,56 +1,56 @@
 const COMBINING_CHARS = /[\u0300-\u036F\u1AB0-\u1AFF\u1DC0-\u1DFF]+/g
 const INVALID_SEPARATOR = /[^-._~]/
 
+const CAMELCASE_PATTERN = '(?:[a-z](?=[A-Z])|[A-Z](?=[A-Z][a-z]))'
+
 const CONVERT = /[A-Za-z\d]+/g
+const CONVERT_CAMELCASE = new RegExp(
+  `[A-Za-z0-9]*?${CAMELCASE_PATTERN}|[A-Za-z0-9]+`,
+  'g'
+)
+
 const REVERT = /[^-._~]+/g
+const REVERT_CAMELCASE = new RegExp(
+  `[^-._~]*?${CAMELCASE_PATTERN}|[^-._~]+`,
+  'g'
+);
+const REVERT_CAMELCASE_ONLY = new RegExp(`.*?${CAMELCASE_PATTERN}|.+`, 'g')
 
-const CCASE = '(?:[a-z](?=[A-Z])|[A-Z](?=[A-Z][a-z]))'
-const CONVERT_CAMELCASE = new RegExp(`[A-Za-z0-9]*?${CCASE}|[A-Za-z0-9]+`, 'g')
-const REVERT_CAMELCASE = new RegExp(`[^-._~]*?${CCASE}|[^-._~]+`, 'g')
-const REVERT_CAMELCASE_WITH_EMPTY_SEPARATOR = new RegExp(`.*?${CCASE}|.+`, 'g')
+/**
+ * Validate options
+ */
 
-/* Parse options */
-
-function parseOptions(options) {
-  const result = {}
-
-  if (options.hasOwnProperty('camelCase')) {
-    const value = options.camelCase
-
-    if (typeof value !== 'boolean') {
-      throw new Error(`camelCase must be a boolean: "${value}".`)
+function validate({ camelCase, separator, transformer }, extra = {}) {
+  if (camelCase !== undefined) {
+    if (typeof camelCase !== 'boolean') {
+      throw new Error(`camelCase must be a boolean: "${camelCase}".`)
     }
-
-    result.camelCase = value
   }
 
-  if (options.hasOwnProperty('separator')) {
-    const value = options.separator
-
-    if (typeof value !== 'string') {
-      throw new Error(`separator must be a string: "${value}".`)
-    } else if (INVALID_SEPARATOR.test(value)) {
-      const error = value.match(INVALID_SEPARATOR)[0]
+  if (
+    separator !== undefined &&
+    !('separator' in extra && separator === extra.separator)
+  ) {
+    if (typeof separator !== 'string') {
+      const error = 'separator' in extra ? ` or ${extra.separator}` : ''
+      throw new Error(`separator must be a string${error}: "${separator}".`)
+    } else if (INVALID_SEPARATOR.test(separator)) {
+      const error = separator.match(INVALID_SEPARATOR)[0]
       throw new Error(`separator has an invalid character: "${error}".`)
     }
-
-    result.separator = value
   }
 
-  if (options.hasOwnProperty('transformer')) {
-    const value = options.transformer
-
-    if (value !== false && typeof value !== 'function') {
-      throw new Error(`transformer must be false or a function: "${value}".`)
+  if (transformer !== undefined) {
+    if (transformer !== false && typeof transformer !== 'function') {
+      const error = `transformer must be false or a function: "${transformer}".`
+      throw new Error(error)
     }
-
-    result.transformer = value
   }
-
-  return result
 }
 
-/* Builtin transformers */
+/**
+ * Builtin transformers
+ */
 
 export const LOWERCASE_TRANSFORMER = (fragments, separator) => {
   return fragments.join(separator).toLowerCase()
@@ -66,14 +66,18 @@ export const UPPERCASE_TRANSFORMER = (fragments, separator) => {
   return fragments.join(separator).toUpperCase()
 }
 
-/* Converts a string into a slug */
+/**
+ * Converts a string into a slug
+ */
 
 export function convert(string, options = {}) {
+  validate(options)
+
   const {
     camelCase = true,
     separator = '-',
-    transformer = LOWERCASE_TRANSFORMER,
-  } = parseOptions(options)
+    transformer = LOWERCASE_TRANSFORMER
+  } = options
 
   const fragments = String(string)
     .normalize('NFKD')
@@ -89,27 +93,30 @@ export function convert(string, options = {}) {
     : fragments.join(separator)
 }
 
-/* Reverts a slug back to a string */
+/**
+ * Reverts a slug back to a string
+ */
 
 export function revert(slug, options = {}) {
+  validate(options, { separator: null })
+
   const {
     camelCase = false,
     separator,
     transformer = false
-  } = parseOptions(options)
+  } = options
 
   let fragments
+  slug = String(slug)
 
   /* Determine which method will be used split the slug */
 
   if ('' === separator) {
-    fragments = camelCase
-      ? String(slug).match(REVERT_CAMELCASE_WITH_EMPTY_SEPARATOR)
-      : [String(slug)]
+    fragments = camelCase ? slug.match(REVERT_CAMELCASE_ONLY) : [String(slug)]
   } else if ('string' === typeof separator) {
-    fragments = String(slug).split(separator)
+    fragments = slug.split(separator)
   } else {
-    fragments = String(slug).match(camelCase ? REVERT_CAMELCASE : REVERT)
+    fragments = slug.match(camelCase ? REVERT_CAMELCASE : REVERT)
   }
 
   if (!fragments) {
@@ -119,6 +126,8 @@ export function revert(slug, options = {}) {
   return transformer ? transformer(fragments, ' ') : fragments.join(' ')
 }
 
-/* Sets convert() as the default export */
+/**
+ * Sets convert() as the default export
+ */
 
 export default convert

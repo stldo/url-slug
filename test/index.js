@@ -49,7 +49,7 @@ describe('convert', () => {
       .to.not.throw()
   })
 
-  it('accepts only unreserved characters in RFC 3986 as separator', () => {
+  it('accepts only hyphen, period, underscore and tilde as separator', () => {
     expect(() => urlSlug.convert('', { separator: '-._~' }))
       .to.not.throw()
     expect(() => urlSlug.convert('', { separator: '+' }))
@@ -183,7 +183,12 @@ describe('revert', () => {
       .to.not.throw()
   })
 
-  it('accepts only unreserved characters in RFC 3986 as separator', () => {
+  it('accepts null as separator', () => {
+    expect(() => urlSlug.revert('', { separator: null }))
+      .to.not.throw()
+  })
+
+  it('accepts only hyphen, period, underscore, and tilde as separator', () => {
     expect(() => urlSlug.revert('', { separator: '-._~' }))
       .to.not.throw()
     expect(() => urlSlug.revert('', { separator: '+' }))
@@ -192,7 +197,7 @@ describe('revert', () => {
 
   it('does not accept a separator that is not a string', () => {
     expect(() => urlSlug.revert('', { separator: 123 }))
-      .to.throw('separator must be a string')
+      .to.throw('separator must be a string or null')
   })
 
   it('accepts false as a transformer', () => {
