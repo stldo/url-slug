@@ -8,6 +8,7 @@ describe('module', () => {
 
   it('has builtin transformers', () => {
     expect(typeof urlSlug.LOWERCASE_TRANSFORMER).to.be.equal('function')
+    expect(typeof urlSlug.SENTENCECASE_TRANSFORMER).to.be.equal('function')
     expect(typeof urlSlug.TITLECASE_TRANSFORMER).to.be.equal('function')
     expect(typeof urlSlug.UPPERCASE_TRANSFORMER).to.be.equal('function')
   })
@@ -17,6 +18,13 @@ describe('module', () => {
     const separator = '-'
     const transformer = urlSlug.LOWERCASE_TRANSFORMER
     expect(transformer(fragments, separator)).to.be.equal('aa-bb')
+  })
+
+  it('has a working sentence case transformer', () => {
+    const fragments = ['aA', 'BB']
+    const separator = '-'
+    const transformer = urlSlug.SENTENCECASE_TRANSFORMER
+    expect(transformer(fragments, separator)).to.be.equal('Aa-bb')
   })
 
   it('has a working tittle case transformer', () => {

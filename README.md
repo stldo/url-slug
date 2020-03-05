@@ -59,9 +59,9 @@ convert('Red, red wine, stay close to me…', {
 
 convert('Listen to Fito Páez in Madrid', {
   separator: '~',
-  transformer: urlSlug.UPPERCASE_TRANSFORMER
+  transformer: urlSlug.SENTENCECASE_TRANSFORMER
 })
-// LISTEN~TO~FITO~PAEZ~IN~MADRID
+// Listen~to~fito~paez~in~madrid
 ```
 
 ### urlSlug.revert(slug[, options])
@@ -124,15 +124,19 @@ revert('WEIrd_SNAke_CAse', {
 
 #### urlSlug.LOWERCASE_TRANSFORMER
 
-Converts the result to lowercase.
+Converts the result to lowercase. E.g.: `// SOME WORDS >> some words`
+
+#### urlSlug.SENTENCECASE_TRANSFORMER
+
+Converts the result to sentence case. E.g.: `// sOME WORDS >> Some words`
 
 #### urlSlug.UPPERCASE_TRANSFORMER
 
-Converts the result to uppercase.
+Converts the result to uppercase. E.g.: `// some words >> SOME WORDS`
 
 #### urlSlug.TITLECASE_TRANSFORMER
 
-Converts the result to title case.
+Converts the result to title case. E.g.: `// sOME wORDS >> Some Words`
 
 ## License
 
