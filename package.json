@@ -3,6 +3,7 @@
   "version": "3.0.0-beta.0",
   "description": "RFC 3986 compliant slug generator with multiple language support",
   "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "./node_modules/.bin/babel src --out-dir .",
     "prepare": "cross-env NODE_ENV=production npm run build",
