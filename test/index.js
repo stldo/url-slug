@@ -57,10 +57,10 @@ describe('convert', () => {
       .to.not.throw()
   })
 
-  it('accepts only hyphen, period, underscore and tilde as separator', () => {
-    expect(() => urlSlug.convert('', { separator: '-._~' }))
+  it('allows only accepted separator characters', () => {
+    expect(() => urlSlug.convert('', { separator: '-._~!$&\'()*+,;=' }))
       .to.not.throw()
-    expect(() => urlSlug.convert('', { separator: '+' }))
+    expect(() => urlSlug.convert('', { separator: 'x' }))
       .to.throw('separator has an invalid character')
   })
 
@@ -196,10 +196,10 @@ describe('revert', () => {
       .to.not.throw()
   })
 
-  it('accepts only hyphen, period, underscore, and tilde as separator', () => {
-    expect(() => urlSlug.revert('', { separator: '-._~' }))
+  it('allows only accepted separator characters', () => {
+    expect(() => urlSlug.revert('', { separator: '-._~!$&\'()*+,;=' }))
       .to.not.throw()
-    expect(() => urlSlug.revert('', { separator: '+' }))
+    expect(() => urlSlug.revert('', { separator: 'x' }))
       .to.throw('separator has an invalid character')
   })
 
@@ -270,10 +270,10 @@ describe('revert', () => {
 
   it('returns the title of a Pink Floyd track', () => {
     const options = {
-      separator: '-._~',
+      separator: '-._~!$&\'()*+,;=',
       transformer: urlSlug.TITLECASE_TRANSFORMER
     }
-    expect(urlSlug.revert('comfortably-._~numb', options))
+    expect(urlSlug.revert('comfortably-._~!$&\'()*+,;=numb', options))
       .to.be.equal('Comfortably Numb')
   })
 

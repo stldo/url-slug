@@ -1,7 +1,7 @@
 {
   "name": "url-slug",
   "version": "3.0.0-beta.1",
-  "description": "RFC 3986 compliant slug generator with multiple language support",
+  "description": "Lightweight slug generator, RFC 3986 compliant",
   "main": "index.js",
   "module": "src/index.js",
   "types": "src/index.d.ts",

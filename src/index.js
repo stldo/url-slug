@@ -1,17 +1,17 @@
 const COMBINING_CHARS = /[\u0300-\u036F\u1AB0-\u1AFF\u1DC0-\u1DFF]+/g
-const INVALID_SEPARATOR = /[^-._~]/
+const INVALID_SEPARATOR = /[^-._~!$&'()*+,;=]/
 
 const CAMELCASE_PATTERN = '(?:[a-z](?=[A-Z])|[A-Z](?=[A-Z][a-z]))'
 
 const CONVERT = /[A-Za-z\d]+/g
 const CONVERT_CAMELCASE = new RegExp(
-  `[A-Za-z0-9]*?${CAMELCASE_PATTERN}|[A-Za-z0-9]+`,
+  `[A-Za-z\\d]*?${CAMELCASE_PATTERN}|[A-Za-z\\d]+`,
   'g'
 )
 
-const REVERT = /[^-._~]+/g
+const REVERT = /[^-._~!$&'()*+,;=]+/g
 const REVERT_CAMELCASE = new RegExp(
-  `[^-._~]*?${CAMELCASE_PATTERN}|[^-._~]+`,
+  `[^-._~!$&'()*+,;=]*?${CAMELCASE_PATTERN}|[^-._~!$&'()*+,;=]+`,
   'g'
 );
 const REVERT_CAMELCASE_ONLY = new RegExp(`.*?${CAMELCASE_PATTERN}|.+`, 'g')

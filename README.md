@@ -1,11 +1,11 @@
 # url-slug [![build status](https://img.shields.io/travis/stldo/url-slug/master?style=flat)](https://travis-ci.org/stldo/url-slug) [![npm version](https://img.shields.io/npm/v/url-slug.svg?style=flat)](https://www.npmjs.com/package/url-slug)
 
-RFC 3986 compliant slug generator with multiple language support. It creates slugs safe for use in URL paths, queries and fragments, and can revert them too.
+Lightweight slug generator. It creates slugs compatible with URL hosts, paths, queries and fragments, as specified in RFC 3986. It also offers a method to revert slugs.
 
 ## Install
 
 ```bash
-$ npm install url-slug
+$ npm install url-slug@beta
 ```
 
 ## Usage
@@ -21,18 +21,18 @@ urlSlug('Sir James Paul McCartney MBE is an English singer-songwriter')
 
 ### urlSlug(string[, options]), urlSlug.convert(string[, options])
 
-Returns the __string__ value converted to a slug.
+Returns the `string` value converted to a slug.
 
 #### string
 
-The string that'll be converted.
+The sentence that will be slugified.
 
 #### options
 
 | Name | Description | Default |
 | --- | --- | --- |
-| camelCase | Split camel case occurrences | `true` |
-| separator | Character to split the string: `'-'`, `'.'`, `'_'`, `'~'` or `''` | '-' |
+| camelCase | Split on camel case occurrences | `true` |
+| separator | [Character or string](#accepted-separator-characters) used to separate the slug fragments | `'-'` |
 | transformer | A built-in transformer or a custom function (`false` to keep the string unchanged) | `urlSlug.LOWERCASE_TRANSFORMER` |
 
 #### Examples
@@ -66,18 +66,18 @@ convert('Listen to Fito Páez in Madrid', {
 
 ### urlSlug.revert(slug[, options])
 
-Returns the __slug__ value converted to a regular string.
+Returns the `slug` value converted to a regular sentence.
 
 #### slug
 
-The slug that'll be reverted.
+The slug that will be reverted.
 
 #### options
 
 | Name | Description | Default |
 | --- | --- | --- |
-| camelCase | Split camel case occurrences | `false` |
-| separator | Character to split the string: `'-'`, `'.'`, `'_'`, `'~'` or `''` (`null` to use all characters) | `null` |
+| camelCase | Split on camel case occurrences | `false` |
+| separator | [Character or string](#accepted-separator-characters) to split the slug (`null` accounts to automatic splitting) | `null` |
 | transformer | A built-in transformer or a custom function (`false` to keep the string unchanged) | `false` |
 
 #### Examples
@@ -99,7 +99,7 @@ revert('this-slug-needs-a-title_case', {
 
 ### Custom transformers
 
-Custom transformers are expressed by a function which receives two arguments, __fragments__, an array with matching words from a sentence or a slug, and __separator__, the current separator string set in options. When `revert()` calls the transformer, the __separator__ will always be a space character (`' '`). Transformers should always return a string.
+Custom transformers are expressed by a function that receives two arguments, `fragments`, an array with matching words from a sentence or a slug, and `separator`, which will be the separator string set in `convert()` options. When `revert()` calls the transformer, the `separator` argument will always be a space character (`' '`) — the `separator` option will be used to split the slug. Transformers should always return a string.
 
 #### Examples
 
@@ -107,9 +107,9 @@ Custom transformers are expressed by a function which receives two arguments, __
 import { convert, revert } from 'url-slug'
 
 convert('O’Neill is an American surfboard, surfwear and equipment brand', {
-  transformer: fragments => fragments.join('+').toUpperCase()
+  transformer: fragments => fragments.join('x').toUpperCase()
 })
-// O+NEILL+IS+AN+AMERICAN+SURFBOARD+SURFWEAR+AND+EQUIPMENT+BRAND
+// OxNEILLxISxANxAMERICANxSURFBOARDxSURFWEARxANDxEQUIPMENTxBRAND
 
 revert('WEIrd_SNAke_CAse', {
   separator: '_',
@@ -137,6 +137,12 @@ Converts the result to uppercase. E.g.: `// some words >> SOME WORDS`
 #### urlSlug.TITLECASE_TRANSFORMER
 
 Converts the result to title case. E.g.: `// sOME wORDS >> Some Words`
+
+### Accepted separator characters
+
+Any character defined as _unreserved_ or _sub-delims_ in RFC 3986, or an empty string, can be used as `separator`. When the `separator` is an empty string, the `revert()` method will split the slug only on camel case occurrences — if `camelCase` option is set to `true`, otherwise it will return an untouched string. The following characters are valid:
+
+`-`, `.`, `_`, `~`, `^`, `-`, `.`, `_`, `~`, `!`, `$`, `&`, `'`, `(`, `)`, `*`, `+`, `,`, `;` or `=`
 
 ## License
 
