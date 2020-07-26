@@ -1,4 +1,4 @@
-# url-slug [![build status](https://img.shields.io/travis/stldo/url-slug/master?style=flat)](https://travis-ci.org/stldo/url-slug) [![npm version](https://img.shields.io/npm/v/url-slug.svg?style=flat)](https://www.npmjs.com/package/url-slug)
+# url-slug [![build status](https://img.shields.io/travis/stldo/url-slug/master)](https://travis-ci.org/stldo/url-slug) [![npm beta version](https://img.shields.io/npm/v/url-slug/beta)](https://www.npmjs.com/package/url-slug/v/beta)
 
 Lightweight slug generator. It creates slugs compatible with URL hosts, paths, queries and fragments, as specified in RFC 3986. It also offers a method to revert slugs.
 
