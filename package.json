@@ -4,11 +4,11 @@
   "description": "RFC 3986 compliant slug generator with multiple language support",
   "main": "index.js",
   "scripts": {
-    "build": "./node_modules/.bin/babel src --out-dir .",
+    "build": "babel src --out-dir .",
     "prepare": "cross-env NODE_ENV=production npm run build",
     "preversion": "npm test",
     "postversion": "git push && git push --tags",
-    "test": "./node_modules/.bin/mocha --require @babel/register test"
+    "test": "mocha --require esm"
   },
   "dependencies": {
     "unidecode": "^0.1.8"
@@ -17,9 +17,9 @@
     "@babel/cli": "^7.10.5",
     "@babel/core": "^7.10.5",
     "@babel/preset-env": "^7.10.4",
-    "@babel/register": "^7.10.5",
     "chai": "^4.2.0",
     "cross-env": "^7.0.2",
+    "esm": "^3.2.25",
     "mocha": "^8.0.1"
   },
   "repository": "https://github.com/stldo/url-slug",
