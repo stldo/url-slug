@@ -19,13 +19,13 @@ urlSlug('Sir James Paul McCartney MBE is an English singer-songwriter')
 
 ## Documentation
 
-### urlSlug(string[, options]), urlSlug.convert(string[, options])
+### urlSlug(string[, options]), convert(string[, options])
 
-Returns the `string` value converted to a slug.
+Returns `string` value converted to a slug.
 
 #### string
 
-The sentence that will be slugified.
+A sentence to be slugified.
 
 #### options
 
@@ -33,12 +33,12 @@ The sentence that will be slugified.
 | --- | --- | --- |
 | camelCase | Split on camel case occurrences | `true` |
 | separator | [Character or string](#accepted-separator-characters) used to separate the slug fragments | `'-'` |
-| transformer | A built-in transformer or a custom function (`false` to keep the string unchanged) | `urlSlug.LOWERCASE_TRANSFORMER` |
+| transformer | A built-in transformer or a custom function (`false` to keep the string unchanged) | `LOWERCASE_TRANSFORMER` |
 
 #### Examples
 
 ```javascript
-import { * as urlSlug, convert } from 'url-slug'
+import { convert, * as urlSlug } from 'url-slug'
 
 convert('Comfortably Numb', {
   transformer: urlSlug.UPPERCASE_TRANSFORMER
@@ -64,13 +64,13 @@ convert('Listen to Fito Páez in Madrid', {
 // Listen~to~fito~paez~in~madrid
 ```
 
-### urlSlug.revert(slug[, options])
+### revert(slug[, options])
 
 Returns the `slug` value converted to a regular sentence.
 
 #### slug
 
-The slug that will be reverted.
+A slug to be reverted to a sentence.
 
 #### options
 
@@ -83,7 +83,7 @@ The slug that will be reverted.
 #### Examples
 
 ```javascript
-import { * as urlSlug, revert } from 'url-slug'
+import { revert, TITLECASE_TRANSFORMER } from 'url-slug'
 
 revert('Replace-every_separator.allowed~andSplitCamelCaseToo', {
   camelCase: true
@@ -92,7 +92,7 @@ revert('Replace-every_separator.allowed~andSplitCamelCaseToo', {
 
 revert('this-slug-needs-a-title_case', {
   separator: '-',
-  transformer: urlSlug.TITLECASE_TRANSFORMER
+  transformer: TITLECASE_TRANSFORMER
 })
 // This Slug Needs A Title_case
 ```
@@ -122,19 +122,19 @@ revert('WEIrd_SNAke_CAse', {
 
 ### Built-in transformers
 
-#### urlSlug.LOWERCASE_TRANSFORMER
+#### LOWERCASE_TRANSFORMER
 
 Converts the result to lowercase. E.g.: `// SOME WORDS >> some words`
 
-#### urlSlug.SENTENCECASE_TRANSFORMER
+#### SENTENCECASE_TRANSFORMER
 
 Converts the result to sentence case. E.g.: `// sOME WORDS >> Some words`
 
-#### urlSlug.UPPERCASE_TRANSFORMER
+#### UPPERCASE_TRANSFORMER
 
 Converts the result to uppercase. E.g.: `// some words >> SOME WORDS`
 
-#### urlSlug.TITLECASE_TRANSFORMER
+#### TITLECASE_TRANSFORMER
 
 Converts the result to title case. E.g.: `// sOME wORDS >> Some Words`
 
