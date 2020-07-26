@@ -2,25 +2,30 @@
   "name": "url-slug",
   "version": "3.0.0-beta.1",
   "description": "Lightweight slug generator, RFC 3986 compliant",
-  "main": "index.js",
-  "module": "src/index.js",
-  "types": "src/index.d.ts",
+  "main": "dist/index.js",
+  "module": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
-    "build": "./node_modules/.bin/babel src --out-dir .",
+    "build": "rollup --config",
     "prepare": "cross-env NODE_ENV=production npm run build",
     "preversion": "npm test",
     "postversion": "git push && git push --tags",
-    "test": "./node_modules/.bin/mocha --require @babel/register test",
-    "watch": "./node_modules/.bin/babel -w src --out-dir ."
+    "test": "mocha --require esm"
   },
   "devDependencies": {
-    "@babel/cli": "^7.10.5",
     "@babel/core": "^7.10.5",
-    "@babel/preset-env": "^7.10.4",
-    "@babel/register": "^7.10.5",
+    "@babel/plugin-transform-runtime": "^7.10.5",
+    "@babel/runtime-corejs3": "^7.10.5",
+    "@rollup/plugin-babel": "^5.1.0",
+    "@rollup/plugin-commonjs": "^14.0.0",
+    "@rollup/plugin-node-resolve": "^8.4.0",
+    "@rollup/plugin-replace": "^2.3.3",
     "chai": "^4.2.0",
     "cross-env": "^7.0.2",
-    "mocha": "^8.0.1"
+    "esm": "^3.2.25",
+    "mocha": "^8.0.1",
+    "rollup": "^2.23.0",
+    "rollup-plugin-terser": "^6.1.0"
   },
   "repository": "https://github.com/stldo/url-slug",
   "keywords": [

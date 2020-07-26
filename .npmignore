@@ -1,0 +1,6 @@
+/src
+/test
+.DS_Store
+.travis.yml
+node_modules
+rollup.config.js
