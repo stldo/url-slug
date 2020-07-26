@@ -1,11 +1,16 @@
-import * as properties from './'
+import convert from './convert'
+import revert from './revert'
+import * as transformers from './transformers'
 
-for (let property in properties) {
-  if (property !== 'default') {
-    Object.defineProperty(properties.default, property, {
-      value: properties[property]
-    })
-  }
+const urlSlug = function (string, options) {
+  return convert(string, options)
 }
 
-export default properties.default
+for (let transformer in transformers) {
+  urlSlug[transformer] = transformers[transformer]
+}
+
+urlSlug.convert = convert
+urlSlug.revert = revert
+
+export default urlSlug
