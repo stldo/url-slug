@@ -1,4 +1,4 @@
-# url-slug [![build status](https://img.shields.io/travis/stldo/url-slug/2.3-stable?style=flat)](https://travis-ci.org/stldo/url-slug) [![npm version](https://img.shields.io/npm/v/url-slug.svg?style=flat)](https://www.npmjs.com/package/url-slug)
+# url-slug [![build status](https://img.shields.io/travis/stldo/url-slug/2.3-stable)](https://travis-ci.org/stldo/url-slug) [![npm version](https://img.shields.io/npm/v/url-slug.svg)](https://www.npmjs.com/package/url-slug)
 
 RFC 3986 compliant slug generator with multiple language support. It creates slugs safe for use in URL paths, queries and fragments, and can revert them too.
 
