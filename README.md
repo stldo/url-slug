@@ -38,26 +38,26 @@ A sentence to be slugified.
 #### Examples
 
 ```javascript
-import { convert, * as urlSlug } from 'url-slug'
+import * as urlSlug from 'url-slug'
 
-convert('Comfortably Numb', {
+urlSlug.convert('Comfortably Numb', {
   transformer: urlSlug.UPPERCASE_TRANSFORMER
 })
 // COMFORTABLY-NUMB
 
-convert('á é í ó ú Á É Í Ó Ú ç Ç ª º ¹ ² ½ ¼', {
+urlSlug.convert('á é í ó ú Á É Í Ó Ú ç Ç ª º ¹ ² ½ ¼', {
   separator: '_',
   transformer: false
 })
 // a_e_i_o_u_A_E_I_O_U_c_C_a_o_1_2_1_2_1_4
 
-convert('Red, red wine, stay close to me…', {
+urlSlug.convert('Red, red wine, stay close to me…', {
   separator: '',
   transformer: urlSlug.TITLECASE_TRANSFORMER
 })
 // RedRedWineStayCloseToMe
 
-convert('Listen to Fito Páez in Madrid', {
+urlSlug.convert('Listen to Fito Páez in Madrid', {
   separator: '~',
   transformer: urlSlug.SENTENCECASE_TRANSFORMER
 })
