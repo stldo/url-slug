@@ -174,6 +174,16 @@ describe('convert', () => {
     expect(urlSlug.convert('- ( ) [ ]'))
       .to.be.equal('')
   })
+
+  it('replaces characters set in dictionary', () => {
+    const options = {
+      dictionary: { '¼': 0.25, '½': ' 1/2 ', 'ß': 'ss', 'Œ': 'OE' }
+    }
+    expect(urlSlug.convert('aßcŒ', options))
+      .to.be.equal('assc-oe')
+    expect(urlSlug.convert('¼½1', options))
+      .to.be.equal('0-25-1-2-1')
+  })
 })
 
 describe('revert', () => {

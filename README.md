@@ -1,6 +1,6 @@
 # url-slug [![build status](https://img.shields.io/travis/stldo/url-slug/master)](https://travis-ci.org/stldo/url-slug) [![npm beta version](https://img.shields.io/npm/v/url-slug/beta)](https://www.npmjs.com/package/url-slug/v/beta)
 
-Lightweight slug generator. It creates slugs compatible with URL hosts, paths, queries and fragments, as specified in RFC 3986. It also offers a method to revert slugs.
+Lightweight slug generator, RFC 3986 compliant. It creates slugs compatible with URL hosts, paths, queries and fragments. It can revert slugs too.
 
 ## Install
 
@@ -32,6 +32,7 @@ A sentence to be slugified.
 | Name | Description | Default |
 | --- | --- | --- |
 | camelCase | Split on camel case occurrences | `true` |
+| dictionary | [Chars to be replaced](#dictionary-option-considerations) | `{}` |
 | separator | [Character or string](#accepted-separator-characters) used to separate the slug fragments | `'-'` |
 | transformer | A built-in transformer or a custom function (`false` to keep the string unchanged) | `LOWERCASE_TRANSFORMER` |
 
@@ -57,11 +58,10 @@ urlSlug.convert('Red, red wine, stay close to me…', {
 })
 // RedRedWineStayCloseToMe
 
-urlSlug.convert('Listen to Fito Páez in Madrid', {
-  separator: '~',
-  transformer: urlSlug.SENTENCECASE_TRANSFORMER
+urlSlug.convert('Schwarzweiß', {
+  dictionary: { 'ß': 'ss', 'z':  'z ' }
 })
-// Listen~to~fito~paez~in~madrid
+// schwarz-weiss
 ```
 
 ### revert(slug[, options])
@@ -143,6 +143,60 @@ Converts the result to title case. E.g.: `// sOME wORDS >> Some Words`
 Any character defined as _unreserved_ or _sub-delims_ in RFC 3986, or an empty string, can be used as `separator`. When the `separator` is an empty string, the `revert()` method will split the slug only on camel case occurrences — if `camelCase` option is set to `true`, otherwise it will return an untouched string. The following characters are valid:
 
 `-`, `.`, `_`, `~`, `^`, `-`, `.`, `_`, `~`, `!`, `$`, `&`, `'`, `(`, `)`, `*`, `+`, `,`, `;` or `=`
+
+### `dictionary` option considerations
+
+It must be an object, with keys set as single characters and values as strings of any length:
+
+```js
+import { convert } from 'url-slug'
+
+convert('♥øß', {
+  dictionary: {
+    '♥': 'love',
+    'ø': 'o',
+    'ß': 'ss',
+    //...
+  }
+})
+// loveoss
+```
+
+To add separators before or after a specific character, add a space before or after the dictionary definition:
+
+```js
+import { convert } from 'url-slug'
+
+convert('♥øß', {
+  dictionary: {
+    '♥': 'love',
+    'ø': ' o', // A space was added before
+    'ß': 'ss',
+    //...
+  }
+})
+// love-oss
+
+convert('♥øß', {
+  dictionary: {
+    '♥': 'love',
+    'ø': ' o ', // A space was added before and after
+    'ß': 'ss',
+    //...
+  }
+})
+// love-o-ss
+
+convert('♥øß', {
+  dictionary: {
+    '♥': 'love',
+    'ø': 'o ', // A space was added after
+    'ß': 'ss',
+    //...
+  }
+})
+// loveo-ss
+```
 
 ## License
 

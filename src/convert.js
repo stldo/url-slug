@@ -1,4 +1,5 @@
 import { CAMELCASE_REGEXP_PATTERN, validate } from './common'
+import { replace } from './dictionary'
 import { LOWERCASE_TRANSFORMER } from './transformers'
 
 const COMBINING_CHARS = /[\u0300-\u036F\u1AB0-\u1AFF\u1DC0-\u1DFF]+/g
@@ -29,7 +30,11 @@ export default function (string, options) {
     ? options.transformer
     : LOWERCASE_TRANSFORMER
 
-  const fragments = String(string)
+  const fragments = (
+    options.dictionary
+      ? replace(String(string), options.dictionary)
+      : String(string)
+  )
     .normalize('NFKD')
     .replace(COMBINING_CHARS, '')
     .match(camelCase ? CONVERT_CAMELCASE : CONVERT)

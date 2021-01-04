@@ -1,5 +1,6 @@
 declare type Options = {
   camelCase?: boolean
+  dictionary?: object
   separator?: string
   transformer?: false | Transformer
 }
