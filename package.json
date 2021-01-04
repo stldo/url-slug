@@ -7,8 +7,8 @@
   "type": "module",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "rollup --config",
-    "prepare": "cross-env NODE_ENV=production npm run build",
+    "build": "cross-env NODE_ENV=production rollup --config",
+    "prepare": "npm run build",
     "preversion": "npm test",
     "postversion": "git push && git push --tags",
     "test": "node --experimental-vm-modules node_modules/.bin/jest"

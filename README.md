@@ -1,11 +1,14 @@
-# url-slug [![build status](https://img.shields.io/travis/stldo/url-slug/master)](https://travis-ci.org/stldo/url-slug) [![npm beta version](https://img.shields.io/npm/v/url-slug/beta)](https://www.npmjs.com/package/url-slug/v/beta)
+# url-slug [![build status](https://img.shields.io/travis/stldo/url-slug/master)](https://travis-ci.org/stldo/url-slug) [![npm](https://img.shields.io/npm/v/url-slug)](https://www.npmjs.com/package/url-slug)
 
-Lightweight slug generator, RFC 3986 compliant. It creates slugs compatible with URL hosts, paths, queries and fragments. It can revert slugs too.
+- __Less than 1kB__ minified and gzipped;
+- __RFC 3986__ compliant, compatible with URL hosts, paths, queries and fragments;
+- Supports __custom dictionaries__ to replace characters;
+- Easily __revert slugs__ with useful options.
 
 ## Install
 
 ```bash
-$ npm install url-slug@beta
+$ npm install url-slug
 ```
 
 ## Usage
