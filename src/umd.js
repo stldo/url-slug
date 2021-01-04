@@ -6,7 +6,7 @@ const urlSlug = function (string, options) {
   return convert(string, options)
 }
 
-for (let transformer in transformers) {
+for (const transformer in transformers) {
   urlSlug[transformer] = transformers[transformer]
 }
 

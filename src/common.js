@@ -2,7 +2,7 @@ const INVALID_SEPARATOR = /[^-._~!$&'()*+,;=]/
 
 export const CAMELCASE_REGEXP_PATTERN = '(?:[a-z](?=[A-Z])|[A-Z](?=[A-Z][a-z]))'
 
-export function validate(options, extra) {
+export function validate (options, extra) {
   const camelCase = options.camelCase
 
   if (camelCase !== undefined && typeof camelCase !== 'boolean') {

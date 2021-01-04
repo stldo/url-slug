@@ -34,9 +34,9 @@ export default function (slug, options) {
 
   /* Determine which method will be used split the slug */
 
-  if ('' === separator) {
+  if (separator === '') {
     fragments = camelCase ? slug.match(REVERT_CAMELCASE_ONLY) : [String(slug)]
-  } else if ('string' === typeof separator) {
+  } else if (typeof separator === 'string') {
     fragments = slug.split(separator)
   } else {
     fragments = slug.match(camelCase ? REVERT_CAMELCASE : REVERT)

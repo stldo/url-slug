@@ -71,7 +71,7 @@ test('uses uppercase transformer and the default separator', () => {
 test('uses uppercase transformer and underscore as separator', () => {
   const options = {
     separator: '_',
-    transformer: TITLECASE_TRANSFORMER,
+    transformer: TITLECASE_TRANSFORMER
   }
 
   expect(convert('tom jobim', options))
@@ -141,7 +141,7 @@ test('handles strings with no alphanumeric characters', () => {
 
 test('replaces characters set in dictionary', () => {
   const options = {
-    dictionary: { '¼': 0.25, '½': ' 1/2 ', 'ß': 'ss', 'Œ': 'OE' }
+    dictionary: { '¼': 0.25, '½': ' 1/2 ', ß: 'ss', Œ: 'OE' }
   }
 
   expect(convert('aßcŒ', options))
