@@ -1,6 +1,6 @@
 {
   "name": "url-slug",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Lightweight slug generator, RFC 3986 compliant",
   "main": "dist/index.js",
   "module": "lib/index.js",
