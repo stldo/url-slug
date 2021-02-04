@@ -201,6 +201,12 @@ convert('♥øß', {
 // loveo-ss
 ```
 
+### Polyfilling
+
+This module uses `String.prototype.normalize()` to convert strings to slugs. If
+you need to support old browsers (e.g. Internet Explorer), you can use a
+polyfill like [unorm](https://github.com/walling/unorm).
+
 ## License
 
 [The MIT License](./LICENSE)
