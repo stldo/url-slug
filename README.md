@@ -3,7 +3,7 @@
 - __Less than 1kB__ minified and gzipped;
 - __RFC 3986__ compliant, compatible with URL hosts, paths, queries and fragments;
 - Supports __custom dictionaries__ to replace characters;
-- Easily __revert slugs__ with useful options.
+- Easily __revert slugs__.
 
 ## Install
 
