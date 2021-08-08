@@ -1,4 +1,4 @@
-# url-slug [![build status](https://img.shields.io/travis/stldo/url-slug/master)](https://travis-ci.org/stldo/url-slug) [![npm](https://img.shields.io/npm/v/url-slug)](https://www.npmjs.com/package/url-slug)
+# url-slug [![build status](https://img.shields.io/travis/stldo/url-slug/master)](https://travis-ci.org/stldo/url-slug) [![npm](https://img.shields.io/npm/v/url-slug)](https://www.npmjs.com/package/url-slug) [![minzipped size](https://img.shields.io/bundlephobia/minzip/url-slug)](https://bundlephobia.com/package/url-slug)
 
 - __Less than 1kB__ minified and gzipped;
 - Uses default JavaScript APIs, __no dependencies__;
