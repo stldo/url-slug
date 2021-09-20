@@ -1,4 +1,4 @@
-# url-slug [![build status](https://img.shields.io/travis/stldo/url-slug/master)](https://travis-ci.org/stldo/url-slug) [![npm](https://img.shields.io/npm/v/url-slug)](https://www.npmjs.com/package/url-slug) [![minzipped size](https://img.shields.io/bundlephobia/minzip/url-slug)](https://bundlephobia.com/package/url-slug)
+# url-slug [![Build status][1]][2] [![npm][3]][4] [![minzipped size][5]][6]
 
 - __Less than 1kB__ minified and gzipped;
 - Uses default JavaScript APIs, __no dependencies__;
@@ -36,8 +36,8 @@ A sentence to be slugified.
 | Name | Description | Default |
 | --- | --- | --- |
 | camelCase | Split on camel case occurrences | `true` |
-| dictionary | [Chars to be replaced](#dictionary-option-considerations) | `{}` |
-| separator | [Character or string](#accepted-separator-characters) used to separate the slug fragments | `'-'` |
+| dictionary | [Chars to be replaced][7] | `{}` |
+| separator | [Character or string][8] used to separate the slug fragments | `'-'` |
 | transformer | A built-in transformer or a custom function (`false` to keep the string unchanged) | `LOWERCASE_TRANSFORMER` |
 
 #### Examples
@@ -81,7 +81,7 @@ A slug to be reverted to a sentence.
 | Name | Description | Default |
 | --- | --- | --- |
 | camelCase | Split on camel case occurrences | `false` |
-| separator | [Character or string](#accepted-separator-characters) to split the slug (`null` accounts to automatic splitting) | `null` |
+| separator | [Character or string][8] to split the slug (`null` accounts to automatic splitting) | `null` |
 | transformer | A built-in transformer or a custom function (`false` to keep the string unchanged) | `false` |
 
 #### Examples
@@ -206,8 +206,19 @@ convert('♥øß', {
 
 This module uses `String.prototype.normalize()` to convert strings to slugs. If
 you need to support old browsers (e.g. Internet Explorer), you can use a
-polyfill like [unorm](https://github.com/walling/unorm).
+polyfill like [unorm][9].
 
 ## License
 
-[The MIT License](./LICENSE)
+[The MIT License][license]
+
+[1]: https://img.shields.io/github/workflow/status/stldo/url-slug/Node.js%20Test
+[2]: https://github.com/stldo/url-slug/actions/workflows/test.js.yml
+[3]: https://img.shields.io/npm/v/url-slug
+[4]: https://www.npmjs.com/package/url-slug
+[5]: https://img.shields.io/bundlephobia/minzip/url-slug
+[6]: https://bundlephobia.com/package/url-slug
+[7]: #dictionary-option-considerations
+[8]: #accepted-separator-characters
+[9]: https://github.com/walling/unorm
+[license]: ./LICENSE
