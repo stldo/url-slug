@@ -1,6 +1,4 @@
-/src
-/test
-.DS_Store
-.travis.yml
-node_modules
+.github
 rollup.config.js
+src
+test
