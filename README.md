@@ -2,6 +2,7 @@
 
 - __Less than 1kB__ minified and gzipped;
 - Uses default JavaScript APIs, __no dependencies__;
+- __SEO__ friendly;
 - __RFC 3986__ compliant, compatible with URL hosts, paths, queries and fragments;
 - Supports __custom dictionaries__ to replace characters;
 - Easily __revert slugs__.
