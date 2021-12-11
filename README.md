@@ -3,7 +3,8 @@
 - __Less than 1kB__ minified and gzipped;
 - Uses default JavaScript APIs, __no dependencies__;
 - __SEO__ friendly;
-- __RFC 3986__ compliant, compatible with URL hosts, paths, queries and fragments;
+- __RFC 3986__ compliant, compatible with URL hosts, paths, queries and
+  fragments;
 - Supports __custom dictionaries__ to replace characters;
 - Easily __revert slugs__.
 
@@ -104,7 +105,12 @@ revert('this-slug-needs-a-title_case', {
 
 ### Custom transformers
 
-Custom transformers are expressed by a function that receives two arguments, `fragments`, an array with matching words from a sentence or a slug, and `separator`, which will be the separator string set in `convert()` options. When `revert()` calls the transformer, the `separator` argument will always be a space character (`' '`) — the `separator` option will be used to split the slug. Transformers should always return a string.
+Custom transformers are expressed by a function that receives two arguments,
+`fragments`, an array with matching words from a sentence or a slug, and
+`separator`, which will be the separator string set in `convert()` options. When
+`revert()` calls the transformer, the `separator` argument will always be a
+space character (`' '`) — the `separator` option will be used to split the slug.
+Transformers should always return a string.
 
 #### Examples
 
@@ -145,13 +151,19 @@ Converts the result to title case. E.g.: `// sOME wORDS >> Some Words`
 
 ### Accepted separator characters
 
-Any character defined as _unreserved_ or _sub-delims_ in RFC 3986, or an empty string, can be used as `separator`. When the `separator` is an empty string, the `revert()` method will split the slug only on camel case occurrences — if `camelCase` option is set to `true`, otherwise it will return an untouched string. The following characters are valid:
+Any character defined as _unreserved_ or _sub-delims_ in RFC 3986, or an empty
+string, can be used as `separator`. When the `separator` is an empty string, the
+`revert()` method will split the slug only on camel case occurrences — if
+`camelCase` option is set to `true`, otherwise it will return an untouched
+string. The following characters are valid:
 
-`-`, `.`, `_`, `~`, `^`, `-`, `.`, `_`, `~`, `!`, `$`, `&`, `'`, `(`, `)`, `*`, `+`, `,`, `;` or `=`
+`-`, `.`, `_`, `~`, `^`, `-`, `.`, `_`, `~`, `!`, `$`, `&`, `'`, `(`, `)`, `*`,
+`+`, `,`, `;` or `=`
 
 ### `dictionary` option considerations
 
-It must be an object, with keys set as single characters and values as strings of any length:
+It must be an object, with keys set as single characters and values as strings
+of any length:
 
 ```js
 import { convert } from 'url-slug'
@@ -167,7 +179,8 @@ convert('♥øß', {
 // loveoss
 ```
 
-To add separators before or after a specific character, add a space before or after the dictionary definition:
+To add separators before or after a specific character, add a space before or
+after the dictionary definition:
 
 ```js
 import { convert } from 'url-slug'
@@ -203,7 +216,7 @@ convert('♥øß', {
 // loveo-ss
 ```
 
-### Polyfilling
+### Polyfill
 
 This module uses `String.prototype.normalize()` to convert strings to slugs. If
 you need to support old browsers (e.g. Internet Explorer), you can use a
