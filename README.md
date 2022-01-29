@@ -8,10 +8,10 @@
 - Supports __custom dictionaries__ to replace characters;
 - Easily __revert slugs__.
 
-## Install
+## Installation
 
 ```bash
-$ npm install url-slug
+npm install url-slug
 ```
 
 ## Usage
@@ -22,8 +22,6 @@ import urlSlug from 'url-slug'
 urlSlug('Sir James Paul McCartney MBE is an English singer-songwriter')
 // sir-james-paul-mc-cartney-mbe-is-an-english-singer-songwriter
 ```
-
-## Documentation
 
 ### urlSlug(string[, options]), convert(string[, options])
 
