@@ -224,7 +224,7 @@ polyfill like [unorm][9].
 
 [The MIT License][license]
 
-[1]: https://img.shields.io/github/workflow/status/stldo/url-slug/Node.js%20Test
+[1]: https://img.shields.io/github/actions/workflow/status/stldo/url-slug/test.yml?branch=master
 [2]: https://github.com/stldo/url-slug/actions/workflows/test.js.yml
 [3]: https://img.shields.io/npm/v/url-slug
 [4]: https://www.npmjs.com/package/url-slug
