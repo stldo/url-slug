@@ -10,7 +10,7 @@
     "prepare": "npm run build",
     "preversion": "npm test",
     "postversion": "git push && git push --tags",
-    "test": "standard --env jest && jest"
+    "test": "jest"
   },
   "devDependencies": {
     "@rollup/plugin-replace": "^4.0.0",
@@ -18,8 +18,7 @@
     "jest": "^27.5.1",
     "jest-esm-transformer": "^1.0.0",
     "rollup": "^2.79.1",
-    "rollup-plugin-terser": "^7.0.2",
-    "standard": "^17.1.0"
+    "rollup-plugin-terser": "^7.0.2"
   },
   "repository": "https://github.com/stldo/url-slug",
   "keywords": [
