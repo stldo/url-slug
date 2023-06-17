@@ -1,12 +1,12 @@
 # url-slug [![Build status][1]][2] [![npm][3]][4] [![minzipped size][5]][6]
 
-- __Less than 1kB__ minified and gzipped;
-- Uses default JavaScript APIs, __no dependencies__;
-- __SEO__ friendly;
-- __RFC 3986__ compliant, compatible with URL hosts, paths, queries and
+- **Less than 1kB** minified and gzipped;
+- Uses default JavaScript APIs, **no dependencies**;
+- **SEO** friendly;
+- **RFC 3986** compliant, compatible with URL hosts, paths, queries and
   fragments;
-- Supports __custom dictionaries__ to replace characters;
-- Easily __revert slugs__.
+- Supports **custom dictionaries** to replace characters;
+- Easily **revert slugs**.
 
 ## Installation
 
@@ -33,11 +33,11 @@ A sentence to be slugified.
 
 #### options
 
-| Name | Description | Default |
-| --- | --- | --- |
-| camelCase | Split on camel case occurrences | `true` |
-| dictionary | [Chars to be replaced][7] | `{}` |
-| separator | [Character or string][8] used to separate the slug fragments | `'-'` |
+| Name        | Description                                                                        | Default                 |
+| ----------- | ---------------------------------------------------------------------------------- | ----------------------- |
+| camelCase   | Split on camel case occurrences                                                    | `true`                  |
+| dictionary  | [Chars to be replaced][7]                                                          | `{}`                    |
+| separator   | [Character or string][8] used to separate the slug fragments                       | `'-'`                   |
 | transformer | A built-in transformer or a custom function (`false` to keep the string unchanged) | `LOWERCASE_TRANSFORMER` |
 
 #### Examples
@@ -46,24 +46,24 @@ A sentence to be slugified.
 import * as urlSlug from 'url-slug'
 
 urlSlug.convert('Comfortably Numb', {
-  transformer: urlSlug.UPPERCASE_TRANSFORMER
+  transformer: urlSlug.UPPERCASE_TRANSFORMER,
 })
 // COMFORTABLY-NUMB
 
 urlSlug.convert('á é í ó ú Á É Í Ó Ú ç Ç ª º ¹ ² ½ ¼', {
   separator: '_',
-  transformer: false
+  transformer: false,
 })
 // a_e_i_o_u_A_E_I_O_U_c_C_a_o_1_2_1_2_1_4
 
 urlSlug.convert('Red, red wine, stay close to me…', {
   separator: '',
-  transformer: urlSlug.TITLECASE_TRANSFORMER
+  transformer: urlSlug.TITLECASE_TRANSFORMER,
 })
 // RedRedWineStayCloseToMe
 
 urlSlug.convert('Schwarzweiß', {
-  dictionary: { 'ß': 'ss', 'z':  'z ' }
+  dictionary: { ß: 'ss', z: 'z ' },
 })
 // schwarz-weiss
 ```
@@ -78,11 +78,11 @@ A slug to be reverted to a sentence.
 
 #### options
 
-| Name | Description | Default |
-| --- | --- | --- |
-| camelCase | Split on camel case occurrences | `false` |
-| separator | [Character or string][8] to split the slug (`null` accounts to automatic splitting) | `null` |
-| transformer | A built-in transformer or a custom function (`false` to keep the string unchanged) | `false` |
+| Name        | Description                                                                         | Default |
+| ----------- | ----------------------------------------------------------------------------------- | ------- |
+| camelCase   | Split on camel case occurrences                                                     | `false` |
+| separator   | [Character or string][8] to split the slug (`null` accounts to automatic splitting) | `null`  |
+| transformer | A built-in transformer or a custom function (`false` to keep the string unchanged)  | `false` |
 
 #### Examples
 
@@ -90,13 +90,13 @@ A slug to be reverted to a sentence.
 import { revert, TITLECASE_TRANSFORMER } from 'url-slug'
 
 revert('Replace-every_separator.allowed~andSplitCamelCaseToo', {
-  camelCase: true
+  camelCase: true,
 })
 // Replace every separator allowed and Split Camel Case Too
 
 revert('this-slug-needs-a-title_case', {
   separator: '-',
-  transformer: TITLECASE_TRANSFORMER
+  transformer: TITLECASE_TRANSFORMER,
 })
 // This Slug Needs A Title_case
 ```
@@ -116,15 +116,19 @@ Transformers should always return a string.
 import { convert, revert } from 'url-slug'
 
 convert('O’Neill is an American surfboard, surfwear and equipment brand', {
-  transformer: fragments => fragments.join('x').toUpperCase()
+  transformer: (fragments) => fragments.join('x').toUpperCase(),
 })
 // OxNEILLxISxANxAMERICANxSURFBOARDxSURFWEARxANDxEQUIPMENTxBRAND
 
 revert('WEIrd_SNAke_CAse', {
   separator: '_',
-  transformer: (fragments, separator) => fragments.map(fragment => (
-    fragment.slice(0, -2).toLowerCase() + fragment.slice(-2).toUpperCase()
-  )).join(separator)
+  transformer: (fragments, separator) =>
+    fragments
+      .map(
+        (fragment) =>
+          fragment.slice(0, -2).toLowerCase() + fragment.slice(-2).toUpperCase()
+      )
+      .join(separator),
 })
 // weiRD snaKE caSE
 ```
@@ -169,10 +173,10 @@ import { convert } from 'url-slug'
 convert('♥øß', {
   dictionary: {
     '♥': 'love',
-    'ø': 'o',
-    'ß': 'ss',
+    ø: 'o',
+    ß: 'ss',
     //...
-  }
+  },
 })
 // loveoss
 ```
@@ -186,30 +190,30 @@ import { convert } from 'url-slug'
 convert('♥øß', {
   dictionary: {
     '♥': 'love',
-    'ø': ' o', // A space was added before
-    'ß': 'ss',
+    ø: ' o', // A space was added before
+    ß: 'ss',
     //...
-  }
+  },
 })
 // love-oss
 
 convert('♥øß', {
   dictionary: {
     '♥': 'love',
-    'ø': ' o ', // A space was added before and after
-    'ß': 'ss',
+    ø: ' o ', // A space was added before and after
+    ß: 'ss',
     //...
-  }
+  },
 })
 // love-o-ss
 
 convert('♥øß', {
   dictionary: {
     '♥': 'love',
-    'ø': 'o ', // A space was added after
-    'ß': 'ss',
+    ø: 'o ', // A space was added after
+    ß: 'ss',
     //...
-  }
+  },
 })
 // loveo-ss
 ```

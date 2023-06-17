@@ -12,7 +12,7 @@ export const TITLECASE_TRANSFORMER = function (fragments, separator) {
   for (let index = 0; index < fragments.length; index++) {
     buffer.push(
       fragments[index].charAt(0).toUpperCase() +
-      fragments[index].slice(1).toLowerCase()
+        fragments[index].slice(1).toLowerCase()
     )
   }
   return buffer.join(separator)

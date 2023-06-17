@@ -1,12 +1,12 @@
-declare type Options = {
-  camelCase?: boolean
+interface Options {
+  camelCase?: boolean
   dictionary?: object
-  separator?: string
-  transformer?: false | Transformer
+  separator?: string
+  transformer?: false | Transformer
 }
 
 declare type RevertOptions = Omit<Options, 'separator'> & {
-  separator?: null | string
+  separator?: null | string
 }
 
 declare type Transformer = (fragments: string[], separator: string) => string

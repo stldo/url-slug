@@ -3,7 +3,7 @@ import { CAMELCASE_REGEXP_PATTERN, validate } from './common'
 const REVERT = /[^-._~!$&'()*+,;=]+/g
 
 const REVERT_CAMELCASE = new RegExp(
-  '[^-._~!$&\'()*+,;=]*?' + CAMELCASE_REGEXP_PATTERN + '|[^-._~!$&\'()*+,;=]+',
+  "[^-._~!$&'()*+,;=]*?" + CAMELCASE_REGEXP_PATTERN + "|[^-._~!$&'()*+,;=]+",
   'g'
 )
 
@@ -19,15 +19,12 @@ export default function (slug, options) {
     validate(options, { separator: null })
   }
 
-  const camelCase = options.camelCase !== undefined
-    ? options.camelCase
-    : false
+  const camelCase = options.camelCase !== undefined ? options.camelCase : false
 
   const separator = options.separator
 
-  const transformer = options.transformer !== undefined
-    ? options.transformer
-    : false
+  const transformer =
+    options.transformer !== undefined ? options.transformer : false
 
   let fragments
   slug = String(slug)

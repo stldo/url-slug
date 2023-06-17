@@ -1,4 +1,10 @@
+.eslintcache
+.eslintrc.json
 .github
+.husky
+.lintstagedrc.json
+jest.config.json
 rollup.config.js
 src
 test
+tsconfig.json

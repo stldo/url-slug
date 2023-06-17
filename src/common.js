@@ -2,7 +2,7 @@ const INVALID_SEPARATOR = /[^-._~!$&'()*+,;=]/
 
 export const CAMELCASE_REGEXP_PATTERN = '(?:[a-z](?=[A-Z])|[A-Z](?=[A-Z][a-z]))'
 
-export function validate (options, extra) {
+export function validate(options, extra) {
   const camelCase = options.camelCase
 
   if (camelCase !== undefined && typeof camelCase !== 'boolean') {
@@ -19,13 +19,16 @@ export function validate (options, extra) {
     if (typeof separator !== 'string') {
       throw new Error(
         'separator must be a string' +
-        ('separator' in extra ? ' or ' + extra.separator : '') + ': "' +
-        separator + '".'
+          ('separator' in extra ? ' or ' + extra.separator : '') +
+          ': "' +
+          separator +
+          '".'
       )
     } else if (INVALID_SEPARATOR.test(separator)) {
       throw new Error(
         'separator has an invalid character: "' +
-        separator.match(INVALID_SEPARATOR)[0] + '".'
+          separator.match(INVALID_SEPARATOR)[0] +
+          '".'
       )
     }
   }
@@ -38,8 +41,7 @@ export function validate (options, extra) {
     typeof transformer !== 'function'
   ) {
     throw new Error(
-      'transformer must be false or a function: "' +
-      transformer + '".'
+      'transformer must be false or a function: "' + transformer + '".'
     )
   }
 }

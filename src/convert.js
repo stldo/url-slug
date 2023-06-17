@@ -19,17 +19,14 @@ export default function (string, options) {
     validate(options)
   }
 
-  const camelCase = options.camelCase !== undefined
-    ? options.camelCase
-    : true
+  const camelCase = options.camelCase !== undefined ? options.camelCase : true
 
-  const separator = options.separator !== undefined
-    ? options.separator
-    : '-'
+  const separator = options.separator !== undefined ? options.separator : '-'
 
-  const transformer = options.transformer !== undefined
-    ? options.transformer
-    : LOWERCASE_TRANSFORMER
+  const transformer =
+    options.transformer !== undefined
+      ? options.transformer
+      : LOWERCASE_TRANSFORMER
 
   const fragments = (
     options.dictionary
