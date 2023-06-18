@@ -21,7 +21,11 @@ export interface RevertOptions {
 
 export default function revert(
   value: string,
-  { camelCase = false, separator, transformer = null }: RevertOptions = {}
+  {
+    camelCase = false,
+    separator = null,
+    transformer = null,
+  }: RevertOptions = {}
 ): string {
   let fragments
 
