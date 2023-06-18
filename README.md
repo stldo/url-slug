@@ -1,4 +1,4 @@
-# url-slug [![Build status][1]][2] [![npm][3]][4] [![minzipped size][5]][6]
+# url-slug [![Build status][1]][2] [![npm][3]][5] [![npm][4]][5] [![minzipped size][6]][7]
 
 - **Less than 1kB** minified and gzipped;
 - Uses default JavaScript APIs, **no dependencies**;
@@ -54,8 +54,8 @@ A string to be slugified.
 | Name        | Description                                                                       | Default                 |
 | ----------- | --------------------------------------------------------------------------------- | ----------------------- |
 | camelCase   | Split on camel case occurrences                                                   | `true`                  |
-| dictionary  | [Chars to be replaced][7]                                                         | `{}`                    |
-| separator   | [Character or string][8] used to separate the slug fragments                      | `'-'`                   |
+| dictionary  | [Chars to be replaced][8]                                                         | `{}`                    |
+| separator   | [Character or string][9] used to separate the slug fragments                      | `'-'`                   |
 | transformer | A built-in transformer or a custom function (`null` to keep the string unchanged) | `LOWERCASE_TRANSFORMER` |
 
 #### Examples
@@ -99,7 +99,7 @@ A slug to be reverted to a sentence.
 | Name        | Description                                                                       | Default |
 | ----------- | --------------------------------------------------------------------------------- | ------- |
 | camelCase   | Split on camel case occurrences                                                   | `false` |
-| separator   | [Character or string][8] to split the slug (`null` for automatic splitting)       | `null`  |
+| separator   | [Character or string][9] to split the slug (`null` for automatic splitting)       | `null`  |
 | transformer | A built-in transformer or a custom function (`null` to keep the string unchanged) | `false` |
 
 #### Examples
@@ -182,7 +182,7 @@ set to `null`:
 `-`, `.`, `_`, `~`, `^`, `-`, `.`, `_`, `~`, `!`, `$`, `&`, `'`, `(`, `)`, `*`,
 `+`, `,`, `;` or `=`
 
-### `dictionary` option considerations
+### `dictionary` option
 
 It must be an object, with keys set as single characters and values as strings
 of any length:
@@ -248,11 +248,11 @@ Compatible with any environment with ES6 support.
 
 [1]: https://img.shields.io/github/actions/workflow/status/stldo/url-slug/test.yml?branch=master
 [2]: https://github.com/stldo/url-slug/actions/workflows/test.js.yml
-[3]: https://img.shields.io/npm/v/url-slug
-[4]: https://www.npmjs.com/package/url-slug
-[5]: https://img.shields.io/bundlephobia/minzip/url-slug
-[6]: https://bundlephobia.com/package/url-slug
-[7]: #dictionary-option-considerations
-[8]: #accepted-separator-characters
-[9]: https://github.com/walling/unorm
+[3]: https://img.shields.io/npm/dm/url-slug
+[4]: https://img.shields.io/npm/v/url-slug
+[5]: https://www.npmjs.com/package/url-slug
+[6]: https://img.shields.io/bundlephobia/minzip/url-slug
+[7]: https://bundlephobia.com/package/url-slug
+[8]: #dictionary-option
+[9]: #separator-characters
 [license]: ./LICENSE
