@@ -14,8 +14,8 @@
     "lint": "npm run lint:tsc && npm run lint:eslint -- --ext cjs,cts,js,jsx,ts,tsx .",
     "lint:eslint": "eslint --cache --ignore-path .gitignore",
     "lint:tsc": "tsc --noEmit",
-    "prepare": "husky install",
-    "preversion": "npm test",
+    "prepare": "husky install && npm run build",
+    "preversion": "npm run lint && npm test",
     "postversion": "git push && git push --tags",
     "test": "jest"
   },
