@@ -23,22 +23,40 @@ urlSlug('Sir James Paul McCartney MBE is an English singer-songwriter')
 // sir-james-paul-mc-cartney-mbe-is-an-english-singer-songwriter
 ```
 
-### urlSlug(string[, options]), convert(string[, options])
+### Usage with Node.js
 
-Returns `string` value converted to a slug.
+> ⚠️ Only named exports are available in Node.js.
 
-#### string
+```javascript
+import { convert } from 'url-slug'
 
-A sentence to be slugified.
+urlSlug('Sir James Paul McCartney MBE is an English singer-songwriter')
+// sir-james-paul-mc-cartney-mbe-is-an-english-singer-songwriter
+```
+
+```javascript
+const { convert } = require('url-slug')
+
+urlSlug('Sir James Paul McCartney MBE is an English singer-songwriter')
+// sir-james-paul-mc-cartney-mbe-is-an-english-singer-songwriter
+```
+
+### urlSlug(value[, options]), convert(value[, options])
+
+Returns `value` value converted to a slug.
+
+#### value
+
+A string to be slugified.
 
 #### options
 
-| Name        | Description                                                                        | Default                 |
-| ----------- | ---------------------------------------------------------------------------------- | ----------------------- |
-| camelCase   | Split on camel case occurrences                                                    | `true`                  |
-| dictionary  | [Chars to be replaced][7]                                                          | `{}`                    |
-| separator   | [Character or string][8] used to separate the slug fragments                       | `'-'`                   |
-| transformer | A built-in transformer or a custom function (`false` to keep the string unchanged) | `LOWERCASE_TRANSFORMER` |
+| Name        | Description                                                                       | Default                 |
+| ----------- | --------------------------------------------------------------------------------- | ----------------------- |
+| camelCase   | Split on camel case occurrences                                                   | `true`                  |
+| dictionary  | [Chars to be replaced][7]                                                         | `{}`                    |
+| separator   | [Character or string][8] used to separate the slug fragments                      | `'-'`                   |
+| transformer | A built-in transformer or a custom function (`null` to keep the string unchanged) | `LOWERCASE_TRANSFORMER` |
 
 #### Examples
 
@@ -68,21 +86,21 @@ urlSlug.convert('Schwarzweiß', {
 // schwarz-weiss
 ```
 
-### revert(slug[, options])
+### revert(value[, options])
 
-Returns the `slug` value converted to a regular sentence.
+Returns the `value` value converted to a regular sentence.
 
-#### slug
+#### value
 
 A slug to be reverted to a sentence.
 
 #### options
 
-| Name        | Description                                                                         | Default |
-| ----------- | ----------------------------------------------------------------------------------- | ------- |
-| camelCase   | Split on camel case occurrences                                                     | `false` |
-| separator   | [Character or string][8] to split the slug (`null` accounts to automatic splitting) | `null`  |
-| transformer | A built-in transformer or a custom function (`false` to keep the string unchanged)  | `false` |
+| Name        | Description                                                                       | Default |
+| ----------- | --------------------------------------------------------------------------------- | ------- |
+| camelCase   | Split on camel case occurrences                                                   | `false` |
+| separator   | [Character or string][8] to split the slug (`null` for automatic splitting)       | `null`  |
+| transformer | A built-in transformer or a custom function (`null` to keep the string unchanged) | `false` |
 
 #### Examples
 
@@ -103,11 +121,11 @@ revert('this-slug-needs-a-title_case', {
 
 ### Custom transformers
 
-Custom transformers are expressed by a function that receives two arguments,
-`fragments`, an array with matching words from a sentence or a slug, and
-`separator`, which will be the separator string set in `convert()` options. When
-`revert()` calls the transformer, the `separator` argument will always be a
-space character (`' '`) — the `separator` option will be used to split the slug.
+Custom transformers are expressed by a function that receives two arguments:
+`fragments`, an array containing the words of a sentence or a slug, and
+`separator`, which is the separator string set in `convert()` options. When
+`revert()` calls a transformer, the `separator` argument will always be a space
+character (`' '`) — the `separator` option will be used to split the slug.
 Transformers should always return a string.
 
 #### Examples
@@ -151,13 +169,15 @@ Converts the result to uppercase. E.g.: `// some words >> SOME WORDS`
 
 Converts the result to title case. E.g.: `// sOME wORDS >> Some Words`
 
-### Accepted separator characters
+### Separator characters
 
-Any character defined as _unreserved_ or _sub-delims_ in RFC 3986, or an empty
-string, can be used as `separator`. When the `separator` is an empty string, the
-`revert()` method will split the slug only on camel case occurrences — if
-`camelCase` option is set to `true`, otherwise it will return an untouched
-string. The following characters are valid:
+Any character or an empty string can be used in the `separator` property. When
+the `separator` is an empty string, the `revert()` method will split the slug
+only on camel case occurrences if `camelCase` option is set to `true`,
+or else it returns an untouched string. The following characters are valid
+according to RFC 3986 — defined as _unreserved_ or _sub-delims_ —, and will be
+used in `revert()` function if automatic splitting is enabled — `separator` is
+set to `null`:
 
 `-`, `.`, `_`, `~`, `^`, `-`, `.`, `_`, `~`, `!`, `$`, `&`, `'`, `(`, `)`, `*`,
 `+`, `,`, `;` or `=`
@@ -218,11 +238,9 @@ convert('♥øß', {
 // loveo-ss
 ```
 
-### Polyfill
+### Compatibility
 
-This module uses `String.prototype.normalize()` to convert strings to slugs. If
-you need to support old browsers (e.g. Internet Explorer), you can use a
-polyfill like [unorm][9].
+Compatible with any environment with ES6 support.
 
 ## License
 
