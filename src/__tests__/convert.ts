@@ -1,53 +1,8 @@
-import convert from '../convert'
+import convert, { type ConvertOptions } from '../convert'
 import { UPPERCASE_TRANSFORMER, TITLECASE_TRANSFORMER } from '../transformers'
 
-test('accepts only boolean values in camelCase option', () => {
-  expect(() => convert('', { camelCase: true })).not.toThrow()
-  expect(() => convert('', { camelCase: false })).not.toThrow()
-  expect(() => convert('', { camelCase: null })).toThrow(
-    'camelCase must be a boolean'
-  )
-})
-
-test('accepts an empty string as separator', () => {
-  expect(() => convert('', { separator: '' })).not.toThrow()
-})
-
-test('allows only accepted separator characters', () => {
-  expect(() => convert('', { separator: "-._~!$&'()*+,;=" })).not.toThrow()
-  expect(() => convert('', { separator: 'x' })).toThrow(
-    'separator has an invalid character'
-  )
-})
-
-test('does not accept a separator that is not a string', () => {
-  expect(() => convert('', { separator: 123 })).toThrow(
-    'separator must be a string'
-  )
-})
-
-test('accepts false as a transformer', () => {
-  expect(() => convert('', { transformer: false })).not.toThrow()
-})
-
-test('accepts a function as a transformer', () => {
-  expect(() => convert('', { transformer: () => {} })).not.toThrow()
-})
-
-test('accepts only false or a function as a transformer', () => {
-  expect(() => convert('', { transformer: true })).toThrow(
-    'transformer must be false or a function'
-  )
-  expect(() => convert('', { transformer: 'string' })).toThrow(
-    'transformer must be false or a function'
-  )
-  expect(() => convert('', { transformer: {} })).toThrow(
-    'transformer must be false or a function'
-  )
-})
-
 test('casts input to string', () => {
-  expect(convert(123)).toBe('123')
+  expect(convert(123 as any)).toBe('123')
 })
 
 test('uses lowercase transformer and hyphen separator as default', () => {
@@ -74,7 +29,7 @@ test('uses uppercase transformer and underscore as separator', () => {
 })
 
 test('uses multiple characters as separator and maintains the case', () => {
-  const options = { separator: '-._~-._~', transformer: false }
+  const options = { separator: '-._~-._~', transformer: null }
 
   expect(convert('Charly García', options)).toBe('Charly-._~-._~Garcia')
 })
@@ -89,7 +44,7 @@ test('returns a camel case slug', () => {
 })
 
 test('splits a camel case string', () => {
-  const options = { transformer: false }
+  const options = { transformer: null }
 
   expect(convert('javaScript')).toBe('java-script')
   expect(convert('javaSCRIPT', options)).toBe('java-SCRIPT')
@@ -104,7 +59,7 @@ test('does not split a camel case string', () => {
 })
 
 test('returns only consonants', () => {
-  const options = {
+  const options: ConvertOptions = {
     separator: '',
     transformer: (fragments, separator) =>
       fragments.join(separator).replace(/[aeiou]/gi, ''),
@@ -122,8 +77,13 @@ test('handles strings with no alphanumeric characters', () => {
 })
 
 test('replaces characters set in dictionary', () => {
-  const options = {
-    dictionary: { '¼': 0.25, '½': ' 1/2 ', ß: 'ss', Œ: 'OE' },
+  const options: ConvertOptions = {
+    dictionary: {
+      '¼': 0.25 as any,
+      '½': ' 1/2 ',
+      ß: 'ss',
+      Œ: 'OE',
+    },
   }
 
   expect(convert('aßcŒ', options)).toBe('assc-oe')

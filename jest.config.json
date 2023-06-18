@@ -1,5 +1,7 @@
 {
+  "preset": "ts-jest",
+  "testEnvironment": "node",
   "transform": {
-    "\\.js$": "jest-esm-transformer"
+    "^.+\\.ts?$": "ts-jest"
   }
 }

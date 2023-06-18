@@ -4,20 +4,33 @@
     "es2021": true,
     "node": true
   },
+
   "extends": ["standard-with-typescript", "plugin:prettier/recommended"],
+
+  "ignorePatterns": ["dist/"],
+
   "overrides": [
+    {
+      "files": ["**/*.ts"],
+      "rules": {
+        "@typescript-eslint/strict-boolean-expressions": "off"
+      }
+    },
     {
       "extends": ["plugin:jest/recommended"],
       "files": ["**/__tests__/**"],
       "plugins": ["jest"]
     }
   ],
+
   "parserOptions": {
     "ecmaVersion": "latest",
     "project": ["tsconfig.json"],
     "sourceType": "module"
   },
+
   "plugins": ["prettier"],
+
   "rules": {
     "prettier/prettier": "error"
   }

@@ -1,5 +1,4 @@
 /dist
-/lib/index.js
 .DS_Store
 .eslintcache
 node_modules

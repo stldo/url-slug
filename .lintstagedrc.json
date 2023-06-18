@@ -1,4 +1,4 @@
 {
-  "**/*.{cjs,cts,js,jsx,ts,tsx}": "npm run lint:eslint",
-  "**/*": "prettier --write --ignore-unknown"
+  "**/*": "npm run format",
+  "**/*.{cjs,cts,js,jsx,ts,tsx}": "npm run lint:eslint"
 }
