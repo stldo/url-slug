@@ -228,7 +228,7 @@ polyfill like [unorm][9].
 [2]: https://github.com/stldo/url-slug/actions/workflows/test.js.yml
 [3]: https://img.shields.io/npm/v/url-slug
 [4]: https://www.npmjs.com/package/url-slug
-[5]: https://img.shields.io/bundlephobia/minzip/url-slug
+[5]: https://img.shields.io/bundlephobia/minzip/url-slug@3
 [6]: https://bundlephobia.com/package/url-slug
 [7]: #dictionary-option-considerations
 [8]: #accepted-separator-characters
