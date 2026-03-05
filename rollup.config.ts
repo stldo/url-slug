@@ -1,9 +1,12 @@
 import terser from '@rollup/plugin-terser'
 import typescript from '@rollup/plugin-typescript'
+import { readFileSync } from 'fs'
 import { type RollupOptions } from 'rollup'
 import dts from 'rollup-plugin-dts'
 
-import packageJson from './package.json' assert { type: 'json' }
+const PACKAGE_JSON = JSON.parse(
+  readFileSync(new URL('./package.json', import.meta.url), 'utf-8')
+)
 
 const BASE_UMD: RollupOptions['output'] = {
   exports: 'named',
@@ -14,28 +17,28 @@ const BASE_UMD: RollupOptions['output'] = {
 const config: RollupOptions[] = [
   {
     input: 'src/index.ts',
-    output: [{ file: packageJson.module, format: 'esm', sourcemap: true }],
+    output: [{ file: PACKAGE_JSON.module, format: 'esm', sourcemap: true }],
     plugins: [typescript()],
   },
 
   {
     input: 'src/index.ts',
     output: [
-      { file: packageJson.module.replace(/\.mjs$/, '.d.ts'), format: 'es' },
+      { file: PACKAGE_JSON.module.replace(/\.mjs$/, '.d.ts'), format: 'es' },
     ],
     plugins: [dts()],
   },
 
   {
     input: 'src/index.ts',
-    output: [{ ...BASE_UMD, file: packageJson.main, sourcemap: true }],
+    output: [{ ...BASE_UMD, file: PACKAGE_JSON.main, sourcemap: true }],
     plugins: [typescript()],
   },
 
   {
     input: 'src/index.ts',
     output: [
-      { ...BASE_UMD, file: packageJson.main.replace(/\.js$/, '.min.js') },
+      { ...BASE_UMD, file: PACKAGE_JSON.main.replace(/\.js$/, '.min.js') },
     ],
     plugins: [terser(), typescript()],
   },
