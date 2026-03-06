@@ -1,49 +1,48 @@
-import { CAMELCASE_REGEXP_PATTERN } from './helpers'
-import { type Transformer } from './transformers'
+import { CAMELCASE_REGEXP_PATTERN } from "./helpers";
+import type { Transformer } from "./transformers";
 
-const REVERT = /[^-._~!$&'()*+,;=]+/g
+const REVERT = /[^-._~!$&'()*+,;=]+/g;
 
 const REVERT_CAMELCASE = new RegExp(
-  "[^-._~!$&'()*+,;=]*?" + CAMELCASE_REGEXP_PATTERN + "|[^-._~!$&'()*+,;=]+",
-  'g'
-)
+  `[^-._~!$&'()*+,;=]*?${CAMELCASE_REGEXP_PATTERN}|[^-._~!$&'()*+,;=]+`,
+  "g",
+);
 
 const REVERT_CAMELCASE_ONLY = new RegExp(
-  '.*?' + CAMELCASE_REGEXP_PATTERN + '|.+',
-  'g'
-)
+  `.*?${CAMELCASE_REGEXP_PATTERN}|.+`,
+  "g",
+);
 
 export interface RevertOptions {
-  camelCase?: boolean
-  separator?: string | null
-  transformer?: Transformer | null
+  camelCase?: boolean;
+  separator?: string | null;
+  transformer?: Transformer | null;
 }
 
 export default function revert(
-  value: string,
+  value: unknown,
   {
     camelCase = false,
     separator = null,
     transformer = null,
-  }: RevertOptions = {}
+  }: RevertOptions = {},
 ): string {
-  let fragments
-
-  value = String(value)
+  const string = String(value);
+  let fragments: RegExpMatchArray | null;
 
   /* Determine which method will be used to split the slug */
 
-  if (separator === '') {
-    fragments = camelCase ? value.match(REVERT_CAMELCASE_ONLY) : [value]
-  } else if (typeof separator === 'string') {
-    fragments = value.split(separator)
+  if (separator === "") {
+    fragments = camelCase ? string.match(REVERT_CAMELCASE_ONLY) : [string];
+  } else if (typeof separator === "string") {
+    fragments = string.split(separator) as RegExpMatchArray;
   } else {
-    fragments = value.match(camelCase ? REVERT_CAMELCASE : REVERT)
+    fragments = string.match(camelCase ? REVERT_CAMELCASE : REVERT);
   }
 
   if (!fragments) {
-    return ''
+    return "";
   }
 
-  return transformer ? transformer(fragments, ' ') : fragments.join(' ')
+  return transformer ? transformer(fragments, " ") : fragments.join(" ");
 }
