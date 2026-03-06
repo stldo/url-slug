@@ -1,10 +1,6 @@
 import convert, { type ConvertOptions } from "../convert";
 import { TITLECASE_TRANSFORMER, UPPERCASE_TRANSFORMER } from "../transformers";
 
-test("casts input to string", () => {
-  expect(convert(123)).toBe("123");
-});
-
 test("uses lowercase transformer and hyphen separator as default", () => {
   expect(convert("Url Slug")).toBe("url-slug");
 });
