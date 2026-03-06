@@ -1,12 +1,13 @@
 # url-slug [![Build status][1]][2] [![npm][3]][5] [![npm][4]][5] [![minzipped size][6]][7]
 
-- **Less than 1kB** minified and gzipped;
-- Uses default JavaScript APIs, **no dependencies**;
+- **No dependencies**, uses default APIs;
+- Around **700 bytes** minified and gzipped;
+- **TypeScript** ready;
+- **ES6** compatible;
 - **SEO** friendly;
-- **RFC 3986** compliant, compatible with URL hosts, paths, queries and
-  fragments;
-- Supports **custom dictionaries** to replace characters;
-- Easily **revert slugs**.
+- **RFC 3986** compliant by default;
+- Supports **custom replacements**;
+- Can **revert slugs**.
 
 ## Installation
 
@@ -251,8 +252,8 @@ Compatible with any environment with ES6 support.
 [3]: https://img.shields.io/npm/dm/url-slug
 [4]: https://img.shields.io/npm/v/url-slug
 [5]: https://www.npmjs.com/package/url-slug
-[6]: https://img.shields.io/bundlephobia/minzip/url-slug
-[7]: https://bundlephobia.com/package/url-slug
+[6]: https://img.shields.io/bundlejs/size/url-slug
+[7]: https://bundlejs.com/?q=url-slug
 [8]: #dictionary-option
 [9]: #separator-characters
 [license]: ./LICENSE
