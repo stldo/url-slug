@@ -18,9 +18,9 @@
   },
   "scripts": {
     "build": "tsdown",
-    "format": "biome check --write",
+    "format": "biome check --no-errors-on-unmatched --write",
     "lint": "npm run lint:tsc && npm run lint:biome",
-    "lint:biome": "biome check",
+    "lint:biome": "biome check --no-errors-on-unmatched",
     "lint:tsc": "tsc --noEmit",
     "prepare": "husky && npm run build",
     "preversion": "npm run lint && npm test",
