@@ -20,24 +20,23 @@ export interface RevertOptions {
 }
 
 export default function revert(
-  value: unknown,
+  value: string,
   {
     camelCase = false,
     separator = null,
     transformer = null,
   }: RevertOptions = {},
 ): string {
-  const string = String(value);
   let fragments: RegExpMatchArray | null;
 
   /* Determine which method will be used to split the slug */
 
   if (separator === "") {
-    fragments = camelCase ? string.match(REVERT_CAMELCASE_ONLY) : [string];
+    fragments = camelCase ? value.match(REVERT_CAMELCASE_ONLY) : [value];
   } else if (typeof separator === "string") {
-    fragments = string.split(separator) as RegExpMatchArray;
+    fragments = value.split(separator) as [string, ...string[]];
   } else {
-    fragments = string.match(camelCase ? REVERT_CAMELCASE : REVERT);
+    fragments = value.match(camelCase ? REVERT_CAMELCASE : REVERT);
   }
 
   if (!fragments) {

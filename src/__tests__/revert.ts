@@ -1,10 +1,6 @@
 import revert from "../revert";
 import { TITLECASE_TRANSFORMER, UPPERCASE_TRANSFORMER } from "../transformers";
 
-it("casts input to string", () => {
-  expect(revert(123)).toBe("123");
-});
-
 it("uses unknown reversion and does not change input case", () => {
   expect(revert("UrlSlug-_url.~slug")).toBe("UrlSlug url slug");
 });

@@ -6,7 +6,7 @@ export const CAMELCASE_REGEXP_PATTERN =
 export function replace(value: string, dictionary: Dictionary): string {
   for (let index = 0, length = value.length; index < length; index++) {
     const char = value[index];
-    const replacement = dictionary[char] && String(dictionary[char]);
+    const replacement = dictionary[char];
 
     if (replacement !== undefined) {
       value = value.slice(0, index) + replacement + value.slice(index + 1);
