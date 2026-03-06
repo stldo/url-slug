@@ -4,8 +4,11 @@
     "module": "ESNext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
+    "declaration": true,
+    "declarationMap": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    "isolatedDeclarations": true,
     "strict": true,
     "skipLibCheck": true
   }
