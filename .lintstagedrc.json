@@ -1,4 +1,4 @@
 {
   "**/*": "npm run format",
-  "**/*.{cjs,cts,js,jsx,ts,tsx}": "npm run lint:biome"
+  "**/*.{ts,tsx}": "npm run lint:tsc"
 }
