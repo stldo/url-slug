@@ -1,9 +1,9 @@
-import { type UserConfig, defineConfig } from 'tsdown'
+import { defineConfig, type UserConfig } from "tsdown";
 
 export default defineConfig({
   dts: true,
   exports: true,
-  format: ['cjs', 'esm'],
+  format: ["cjs", "esm"],
   minify: true,
-  sourcemap: 'hidden',
-}) satisfies UserConfig as UserConfig
+  sourcemap: "hidden",
+}) satisfies UserConfig as UserConfig;
