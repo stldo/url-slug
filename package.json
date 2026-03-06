@@ -20,7 +20,7 @@
     "build": "tsdown",
     "format": "biome check --write",
     "lint": "npm run lint:tsc && npm run lint:biome",
-    "lint:biome": "biome lint",
+    "lint:biome": "biome check",
     "lint:tsc": "tsc --noEmit",
     "prepare": "husky install && npm run build",
     "preversion": "npm run lint && npm test",
