@@ -5,5 +5,8 @@ export default defineConfig({
   exports: true,
   format: ["cjs", "esm"],
   minify: true,
+  outputOptions: {
+    exports: "named",
+  },
   sourcemap: "hidden",
 }) satisfies UserConfig as UserConfig;
