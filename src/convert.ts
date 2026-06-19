@@ -17,7 +17,7 @@ const CONVERT_CAMELCASE = new RegExp(
   "g",
 );
 
-export default function convert(
+export default function urlSlug(
   value: string,
   {
     camelCase = true,
