@@ -18,31 +18,13 @@ npm install url-slug
 ## Usage
 
 ```javascript
-import urlSlug from 'url-slug'
+import urlSlug from "url-slug";
 
-urlSlug('Sir James Paul McCartney MBE is an English singer-songwriter')
+urlSlug("Sir James Paul McCartney MBE is an English singer-songwriter");
 // sir-james-paul-mc-cartney-mbe-is-an-english-singer-songwriter
 ```
 
-### Usage with Node.js
-
-> ⚠️ Only named exports are available in Node.js.
-
-```javascript
-import { convert } from 'url-slug'
-
-urlSlug('Sir James Paul McCartney MBE is an English singer-songwriter')
-// sir-james-paul-mc-cartney-mbe-is-an-english-singer-songwriter
-```
-
-```javascript
-const { convert } = require('url-slug')
-
-urlSlug('Sir James Paul McCartney MBE is an English singer-songwriter')
-// sir-james-paul-mc-cartney-mbe-is-an-english-singer-songwriter
-```
-
-### urlSlug(value[, options]), convert(value[, options])
+### convert(value[, options])
 
 Returns `value` value converted to a slug.
 
@@ -56,34 +38,38 @@ A string to be slugified.
 | ----------- | --------------------------------------------------------------------------------- | ----------------------- |
 | camelCase   | Split on camel case occurrences                                                   | `true`                  |
 | dictionary  | [Chars to be replaced][8]                                                         | `{}`                    |
-| separator   | [Character or string][9] used to separate the slug fragments                      | `'-'`                   |
+| separator   | [Character or string][9] used to separate the slug fragments                      | `"-"`                   |
 | transformer | A built-in transformer or a custom function (`null` to keep the string unchanged) | `LOWERCASE_TRANSFORMER` |
 
 #### Examples
 
 ```javascript
-import * as urlSlug from 'url-slug'
+import { 
+  TITLECASE_TRANSFORMER,
+  UPPERCASE_TRANSFORMER, 
+  convert, 
+} from "url-slug";
 
-urlSlug.convert('Comfortably Numb', {
-  transformer: urlSlug.UPPERCASE_TRANSFORMER,
-})
+convert("Comfortably Numb", {
+  transformer: UPPERCASE_TRANSFORMER,
+});
 // COMFORTABLY-NUMB
 
-urlSlug.convert('á é í ó ú Á É Í Ó Ú ç Ç ª º ¹ ² ½ ¼', {
-  separator: '_',
+convert("á é í ó ú Á É Í Ó Ú ç Ç ª º ¹ ² ½ ¼", {
+  separator: "_",
   transformer: false,
-})
+});
 // a_e_i_o_u_A_E_I_O_U_c_C_a_o_1_2_1_2_1_4
 
-urlSlug.convert('Red, red wine, stay close to me…', {
-  separator: '',
-  transformer: urlSlug.TITLECASE_TRANSFORMER,
-})
+convert("Red, red wine, stay close to me…", {
+  separator: "",
+  transformer: TITLECASE_TRANSFORMER,
+});
 // RedRedWineStayCloseToMe
 
-urlSlug.convert('Schwarzweiß', {
-  dictionary: { ß: 'ss', z: 'z ' },
-})
+convert("Schwarzweiß", {
+  dictionary: { ß: "ss", z: "z " },
+});
 // schwarz-weiss
 ```
 
@@ -106,17 +92,17 @@ A slug to be reverted to a sentence.
 #### Examples
 
 ```javascript
-import { revert, TITLECASE_TRANSFORMER } from 'url-slug'
+import { TITLECASE_TRANSFORMER, revert } from "url-slug";
 
-revert('Replace-every_separator.allowed~andSplitCamelCaseToo', {
+revert("Replace-every_separator.allowed~andSplitCamelCaseToo", {
   camelCase: true,
-})
+});
 // Replace every separator allowed and Split Camel Case Too
 
-revert('this-slug-needs-a-title_case', {
-  separator: '-',
+revert("this-slug-needs-a-title_case", {
+  separator: "-",
   transformer: TITLECASE_TRANSFORMER,
-})
+});
 // This Slug Needs A Title_case
 ```
 
@@ -126,21 +112,21 @@ Custom transformers are expressed by a function that receives two arguments:
 `fragments`, an array containing the words of a sentence or a slug, and
 `separator`, which is the separator string set in `convert()` options. When
 `revert()` calls a transformer, the `separator` argument will always be a space
-character (`' '`) — the `separator` option will be used to split the slug.
+character (`" "`) — the `separator` option will be used to split the slug.
 Transformers should always return a string.
 
 #### Examples
 
 ```javascript
-import { convert, revert } from 'url-slug'
+import { convert, revert } from "url-slug";
 
-convert('O’Neill is an American surfboard, surfwear and equipment brand', {
-  transformer: (fragments) => fragments.join('x').toUpperCase(),
-})
+convert("O’Neill is an American surfboard, surfwear and equipment brand", {
+  transformer: (fragments) => fragments.join("x").toUpperCase(),
+});
 // OxNEILLxISxANxAMERICANxSURFBOARDxSURFWEARxANDxEQUIPMENTxBRAND
 
-revert('WEIrd_SNAke_CAse', {
-  separator: '_',
+revert("WEIrd_SNAke_CAse", {
+  separator: "_",
   transformer: (fragments, separator) =>
     fragments
       .map(
@@ -148,7 +134,7 @@ revert('WEIrd_SNAke_CAse', {
           fragment.slice(0, -2).toLowerCase() + fragment.slice(-2).toUpperCase()
       )
       .join(separator),
-})
+});
 // weiRD snaKE caSE
 ```
 
@@ -189,16 +175,16 @@ It must be an object, with keys set as single characters and values as strings
 of any length:
 
 ```js
-import { convert } from 'url-slug'
+import { convert } from "url-slug";
 
-convert('♥øß', {
+convert("♥øß", {
   dictionary: {
-    '♥': 'love',
-    ø: 'o',
-    ß: 'ss',
+    "♥": "love",
+    ø: "o",
+    ß: "ss",
     //...
   },
-})
+});
 // loveoss
 ```
 
@@ -206,36 +192,36 @@ To add separators before or after a specific character, add a space before or
 after the dictionary definition:
 
 ```js
-import { convert } from 'url-slug'
+import { convert } from "url-slug";
 
-convert('♥øß', {
+convert("♥øß", {
   dictionary: {
-    '♥': 'love',
-    ø: ' o', // A space was added before
-    ß: 'ss',
+    "♥": "love",
+    ø: " o", // A space was added before
+    ß: "ss",
     //...
   },
-})
+});
 // love-oss
 
-convert('♥øß', {
+convert("♥øß", {
   dictionary: {
-    '♥': 'love',
-    ø: ' o ', // A space was added before and after
-    ß: 'ss',
+    "♥": "love",
+    ø: " o ", // A space was added before and after
+    ß: "ss",
     //...
   },
-})
+});
 // love-o-ss
 
-convert('♥øß', {
+convert("♥øß", {
   dictionary: {
-    '♥': 'love',
-    ø: 'o ', // A space was added after
-    ß: 'ss',
+    "♥": "love",
+    ø: "o ", // A space was added after
+    ß: "ss",
     //...
   },
-})
+});
 // loveo-ss
 ```
 
