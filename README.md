@@ -1,13 +1,13 @@
 # url-slug [![Build status][1]][2] [![npm][3]][5] [![npm][4]][5] [![minzipped size][6]][7]
 
-- **No dependencies**, uses default APIs;
-- Around **700 bytes** minified and gzipped;
-- **TypeScript** ready;
-- **ES6** compatible;
-- **SEO** friendly;
-- **RFC 3986** compliant by default;
-- Supports **custom replacements**;
-- Can **revert slugs**.
+- **Zero dependencies** for a minimal bundle footprint
+- **Ultra-lightweight** at **~700 bytes** minified and gzipped
+- **TypeScript-ready** with built-in type definitions
+- **ES6-compatible** to work in all modern environments
+- **SEO-friendly** to generate clean, readable URL slugs
+- **RFC 3986-compliant** by default
+- Customize slug generation using **custom replacements**
+- Easily **revert slugs** back into regular sentences
 
 ## Installation
 
@@ -44,10 +44,10 @@ A string to be slugified.
 #### Examples
 
 ```javascript
-import { 
+import {
   TITLECASE_TRANSFORMER,
-  UPPERCASE_TRANSFORMER, 
-  convert, 
+  UPPERCASE_TRANSFORMER,
+  convert,
 } from "url-slug";
 
 convert("Comfortably Numb", {
