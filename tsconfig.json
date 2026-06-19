@@ -2,8 +2,7 @@
   "compilerOptions": {
     "target": "ES6",
     "module": "ESNext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
+    "moduleResolution": "bundler",
     "declaration": true,
     "declarationMap": true,
     "esModuleInterop": true,

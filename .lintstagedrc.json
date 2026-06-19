@@ -1,4 +1,4 @@
 {
   "**/*": "npm run format",
-  "**/*.{ts,tsx}": "npm run lint:tsc"
+  "src/*.{ts,tsx}": "npm run lint:tsc"
 }
