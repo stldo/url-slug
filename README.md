@@ -1,4 +1,4 @@
-# url-slug [![Build status][1]][2] [![npm][3]][5] [![npm][4]][5] [![minzipped size][6]][7]
+# url-slug [![License][1]][license] [![Build status][2]][3] [![npm][4]][6] [![npm][5]][6] [![minzipped size][7]][8]
 
 - **Zero dependencies** for a minimal bundle footprint
 - **Ultra-lightweight** at **~700 bytes** minified and gzipped
@@ -37,8 +37,8 @@ A string to be slugified.
 | Name        | Description                                                                       | Default                 |
 | ----------- | --------------------------------------------------------------------------------- | ----------------------- |
 | camelCase   | Split on camel case occurrences                                                   | `true`                  |
-| dictionary  | [Chars to be replaced][8]                                                         | `{}`                    |
-| separator   | [Character or string][9] used to separate the slug fragments                      | `"-"`                   |
+| dictionary  | [Chars to be replaced][9]                                                         | `{}`                    |
+| separator   | [Character or string][10] used to separate the slug fragments                      | `"-"`                   |
 | transformer | A built-in transformer or a custom function (`null` to keep the string unchanged) | `LOWERCASE_TRANSFORMER` |
 
 #### Examples
@@ -86,7 +86,7 @@ A slug to be reverted to a sentence.
 | Name        | Description                                                                       | Default |
 | ----------- | --------------------------------------------------------------------------------- | ------- |
 | camelCase   | Split on camel case occurrences                                                   | `false` |
-| separator   | [Character or string][9] to split the slug (`null` for automatic splitting)       | `null`  |
+| separator   | [Character or string][10] to split the slug (`null` for automatic splitting)       | `null`  |
 | transformer | A built-in transformer or a custom function (`null` to keep the string unchanged) | `false` |
 
 #### Examples
@@ -233,13 +233,16 @@ Compatible with any environment with ES6 support.
 
 [The MIT License][license]
 
-[1]: https://img.shields.io/github/actions/workflow/status/stldo/url-slug/test.yml?branch=master
-[2]: https://github.com/stldo/url-slug/actions/workflows/test.js.yml
-[3]: https://img.shields.io/npm/dm/url-slug
-[4]: https://img.shields.io/npm/v/url-slug
-[5]: https://www.npmjs.com/package/url-slug
-[6]: https://img.shields.io/bundlejs/size/url-slug
-[7]: https://bundlejs.com/?q=url-slug
-[8]: #dictionary-option
-[9]: #separator-characters
+Copyright (C) 2015-present stldo
+
+[1]: https://img.shields.io/github/license/stldo/url-slug
+[2]: https://img.shields.io/github/actions/workflow/status/stldo/url-slug/test.yml?branch=master
+[3]: https://github.com/stldo/url-slug/actions/workflows/test.js.yml
+[4]: https://img.shields.io/npm/dm/url-slug
+[5]: https://img.shields.io/npm/v/url-slug
+[6]: https://www.npmjs.com/package/url-slug
+[7]: https://img.shields.io/bundlejs/size/url-slug
+[8]: https://bundlejs.com/?q=url-slug
+[9]: #dictionary-option
+[10]: #separator-characters
 [license]: ./LICENSE
