@@ -1,5 +1,8 @@
-import convert, { type ConvertOptions } from "../convert";
-import { TITLECASE_TRANSFORMER, UPPERCASE_TRANSFORMER } from "../transformers";
+import convert, { type ConvertOptions } from "../convert.ts";
+import {
+  TITLECASE_TRANSFORMER,
+  UPPERCASE_TRANSFORMER,
+} from "../transformers.ts";
 
 test("uses lowercase transformer and hyphen separator as default", () => {
   expect(convert("Url Slug")).toBe("url-slug");
@@ -77,7 +80,9 @@ test("replaces characters set in dictionary", () => {
     dictionary: {
       "¼": "0.25",
       "½": " 1/2 ",
+      // biome-ignore lint/style/useNamingConvention: test example
       ß: "ss",
+      // biome-ignore lint/style/useNamingConvention: test example
       Œ: "OE",
     },
   };

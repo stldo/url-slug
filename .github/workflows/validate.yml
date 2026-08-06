@@ -1,4 +1,4 @@
-name: Test
+name: Validate
 
 on:
   push:
@@ -26,5 +26,4 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci # Already runs build and check on prepare script
-      - run: npm run lint
-      - run: npm test
+      - run: npm run validate

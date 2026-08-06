@@ -1,4 +1,4 @@
 export default {
   "**/*": "npm run format",
-  "src/*.{ts,tsx}": () => "npm run lint:tsc",
+  "src/*.{ts,tsx}": () => "npm run typecheck",
 };

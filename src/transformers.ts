@@ -1,8 +1,7 @@
 export type Transformer = (fragments: string[], separator: string) => string;
 
-export const LOWERCASE_TRANSFORMER: Transformer = (fragments, separator) => {
-  return fragments.join(separator).toLowerCase();
-};
+export const LOWERCASE_TRANSFORMER: Transformer = (fragments, separator) =>
+  fragments.join(separator).toLowerCase();
 
 export const SENTENCECASE_TRANSFORMER: Transformer = (fragments, separator) => {
   const sentence = fragments.join(separator);
@@ -11,7 +10,7 @@ export const SENTENCECASE_TRANSFORMER: Transformer = (fragments, separator) => {
 };
 
 export const TITLECASE_TRANSFORMER: Transformer = (fragments, separator) => {
-  const buffer = [];
+  const buffer: string[] = [];
 
   for (let index = 0; index < fragments.length; index++) {
     buffer.push(
@@ -23,6 +22,5 @@ export const TITLECASE_TRANSFORMER: Transformer = (fragments, separator) => {
   return buffer.join(separator);
 };
 
-export const UPPERCASE_TRANSFORMER: Transformer = (fragments, separator) => {
-  return fragments.join(separator).toUpperCase();
-};
+export const UPPERCASE_TRANSFORMER: Transformer = (fragments, separator) =>
+  fragments.join(separator).toUpperCase();
