@@ -1,6 +1,6 @@
 {
   "name": "url-slug",
-  "version": "5.0.1",
+  "version": "5.1.0",
   "author": "stldo (https://github.com/stldo)",
   "description": "Tiny, zero-dependency slug generator (~700 bytes gzipped) with full TypeScript support — converts strings into clean, RFC 3986-compliant slugs and reverts them back to sentences",
   "keywords": [
