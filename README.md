@@ -1,13 +1,13 @@
-# url-slug [![Build status][1]][2] [![npm][3]][5] [![npm][4]][5] [![minzipped size][6]][7]
+# url-slug [![License][1]][license] [![Build status][2]][3] [![npm][4]][6] [![npm][5]][6] [![minzipped size][7]][8]
 
-- **No dependencies**, uses default APIs;
-- Around **700 bytes** minified and gzipped;
-- **TypeScript** ready;
-- **ES6** compatible;
-- **SEO** friendly;
-- **RFC 3986** compliant by default;
-- Supports **custom replacements**;
-- Can **revert slugs**.
+- **Zero dependencies** for a minimal bundle footprint
+- **Ultra-lightweight**, weighing in at **~700 bytes** minified and gzipped
+- **TypeScript-ready** with built-in type definitions
+- **ES6-compatible** for use in all modern environments
+- **SEO-friendly**, generating clean, readable URL slugs
+- **RFC 3986-compliant** by default
+- Customize slug generation with **custom replacements**
+- Easily **revert slugs** back into regular sentences
 
 ## Installation
 
@@ -26,28 +26,28 @@ urlSlug("Sir James Paul McCartney MBE is an English singer-songwriter");
 
 ### convert(value[, options])
 
-Returns `value` value converted to a slug.
+Returns the `value` converted to a slug.
 
 #### value
 
-A string to be slugified.
+The string to be slugified.
 
 #### options
 
-| Name        | Description                                                                       | Default                 |
-| ----------- | --------------------------------------------------------------------------------- | ----------------------- |
-| camelCase   | Split on camel case occurrences                                                   | `true`                  |
-| dictionary  | [Chars to be replaced][8]                                                         | `{}`                    |
-| separator   | [Character or string][9] used to separate the slug fragments                      | `"-"`                   |
-| transformer | A built-in transformer or a custom function (`null` to keep the string unchanged) | `LOWERCASE_TRANSFORMER` |
+|Name|Description|Default|
+|---|---|---|
+|`camelCase`|Split on camel case occurrences|`true`|
+|`dictionary`|[Characters to be replaced](#dictionary-option)|`{}`|
+|`separator`|[Character or string](#separator-characters) used to separate the slug fragments|`"-"`|
+|`transformer`|A built-in transformer or a custom function (`null` to leave the string unchanged)|`LOWERCASE_TRANSFORMER`|
 
 #### Examples
 
 ```javascript
-import { 
+import {
   TITLECASE_TRANSFORMER,
-  UPPERCASE_TRANSFORMER, 
-  convert, 
+  UPPERCASE_TRANSFORMER,
+  convert,
 } from "url-slug";
 
 convert("Comfortably Numb", {
@@ -75,19 +75,19 @@ convert("Schwarzweiß", {
 
 ### revert(value[, options])
 
-Returns the `value` value converted to a regular sentence.
+Returns the `value` converted back into a regular sentence.
 
 #### value
 
-A slug to be reverted to a sentence.
+The slug to be reverted to a sentence.
 
 #### options
 
-| Name        | Description                                                                       | Default |
-| ----------- | --------------------------------------------------------------------------------- | ------- |
-| camelCase   | Split on camel case occurrences                                                   | `false` |
-| separator   | [Character or string][9] to split the slug (`null` for automatic splitting)       | `null`  |
-| transformer | A built-in transformer or a custom function (`null` to keep the string unchanged) | `false` |
+|Name|Description|Default|
+|---|---|---|
+|`camelCase`|Split on camel case occurrences|`false`|
+|`separator`|[Character or string](#separator-characters) used to split the slug (`null` for automatic splitting)|`null`|
+|`transformer`|A built-in transformer or a custom function (`null` to leave the string unchanged)|`false`|
 
 #### Examples
 
@@ -108,12 +108,12 @@ revert("this-slug-needs-a-title_case", {
 
 ### Custom transformers
 
-Custom transformers are expressed by a function that receives two arguments:
-`fragments`, an array containing the words of a sentence or a slug, and
-`separator`, which is the separator string set in `convert()` options. When
-`revert()` calls a transformer, the `separator` argument will always be a space
-character (`" "`) — the `separator` option will be used to split the slug.
-Transformers should always return a string.
+A custom transformer is a function that receives two arguments: `fragments`,
+an array containing the words of a sentence or slug, and `separator`, the
+separator string set in the `convert()` options. When `revert()` calls a
+transformer, the `separator` argument is always a space character (`" "`) —
+the `separator` option is used only to split the slug. Transformers must
+always return a string.
 
 #### Examples
 
@@ -158,21 +158,21 @@ Converts the result to title case. E.g.: `// sOME wORDS >> Some Words`
 
 ### Separator characters
 
-Any character or an empty string can be used in the `separator` property. When
-the `separator` is an empty string, the `revert()` method will split the slug
-only on camel case occurrences if `camelCase` option is set to `true`,
-or else it returns an untouched string. The following characters are valid
-according to RFC 3986 — defined as _unreserved_ or _sub-delims_ —, and will be
-used in `revert()` function if automatic splitting is enabled — `separator` is
-set to `null`:
+Any character, or an empty string, can be used as the `separator`. When the
+`separator` is an empty string, `revert()` will split the slug only on camel
+case occurrences if the `camelCase` option is set to `true`; otherwise, it
+returns the string unchanged. The following characters are valid according to
+RFC 3986 — defined as _unreserved_ or _sub-delims_ — and are used by
+`revert()` when automatic splitting is enabled, i.e. when `separator` is set
+to `null`:
 
 `-`, `.`, `_`, `~`, `^`, `-`, `.`, `_`, `~`, `!`, `$`, `&`, `'`, `(`, `)`, `*`,
 `+`, `,`, `;` or `=`
 
 ### `dictionary` option
 
-It must be an object, with keys set as single characters and values as strings
-of any length:
+This option must be an object whose keys are single characters and whose
+values are strings of any length:
 
 ```js
 import { convert } from "url-slug";
@@ -188,8 +188,8 @@ convert("♥øß", {
 // loveoss
 ```
 
-To add separators before or after a specific character, add a space before or
-after the dictionary definition:
+To add separators before or after a specific character, include a space
+before or after the replacement value in the dictionary:
 
 ```js
 import { convert } from "url-slug";
@@ -227,19 +227,20 @@ convert("♥øß", {
 
 ### Compatibility
 
-Compatible with any environment with ES6 support.
+Compatible with any environment that supports ES6.
 
 ## License
 
 [The MIT License][license]
 
-[1]: https://img.shields.io/github/actions/workflow/status/stldo/url-slug/test.yml?branch=master
-[2]: https://github.com/stldo/url-slug/actions/workflows/test.js.yml
-[3]: https://img.shields.io/npm/dm/url-slug
-[4]: https://img.shields.io/npm/v/url-slug
-[5]: https://www.npmjs.com/package/url-slug
-[6]: https://img.shields.io/bundlejs/size/url-slug
-[7]: https://bundlejs.com/?q=url-slug
-[8]: #dictionary-option
-[9]: #separator-characters
+Copyright (C) 2015-present stldo
+
+[1]: https://img.shields.io/github/license/stldo/url-slug
+[2]: https://img.shields.io/github/actions/workflow/status/stldo/url-slug/validate.yml?branch=master
+[3]: https://github.com/stldo/url-slug/actions/workflows/validate.js.yml
+[4]: https://img.shields.io/npm/dm/url-slug
+[5]: https://img.shields.io/npm/v/url-slug
+[6]: https://www.npmjs.com/package/url-slug
+[7]: https://img.shields.io/bundlejs/size/url-slug
+[8]: https://bundlejs.com/?q=url-slug
 [license]: ./LICENSE

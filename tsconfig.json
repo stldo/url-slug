@@ -1,15 +1,18 @@
 {
   "compilerOptions": {
+    "allowImportingTsExtensions": true,
     "declaration": true,
     "declarationMap": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedDeclarations": true,
-    "module": "ESNext",
+    "module": "esnext",
     "moduleResolution": "bundler",
+    "noEmit": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "ES6",
+    "target": "es6",
     "types": ["jest"]
-  }
+  },
+  "exclude": ["dist", "node_modules", "**/#*", "**/*.#*"]
 }

@@ -1,4 +1,4 @@
-import * as urlSlug from "../index";
+import * as urlSlug from "../index.ts";
 
 test("sets the convert function as the default export", () => {
   expect(urlSlug.convert).toBe(urlSlug.default);

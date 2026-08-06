@@ -1,11 +1,41 @@
 {
   "name": "url-slug",
   "version": "5.0.1",
-  "type": "module",
-  "description": "Slug generator with less than 1 KB and no dependencies, RFC 3986 compliant",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.cts",
+  "author": "stldo (https://github.com/stldo)",
+  "description": "Tiny, zero-dependency slug generator (~700 bytes gzipped) with full TypeScript support — converts strings into clean, RFC 3986-compliant slugs and reverts them back to sentences",
+  "keywords": [
+    "convert",
+    "revert",
+    "rfc-3986",
+    "seo",
+    "slug",
+    "slugify",
+    "string",
+    "url",
+    "url-safe",
+    "url-slug",
+    "urlify"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stldo/url-slug.git"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.7",
+    "@types/jest": "^30.0.0",
+    "es-check": "^9.6.4",
+    "husky": "^9.1.7",
+    "jest": "^30.4.2",
+    "lint-staged": "^17.3.0",
+    "publint": "^0.3.23",
+    "ts-jest": "^29.4.12",
+    "tsdown": "^0.22.14",
+    "typescript": "^6.0.3"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
   "exports": {
     ".": {
       "import": "./dist/index.mjs",
@@ -13,9 +43,11 @@
     },
     "./package.json": "./package.json"
   },
-  "engines": {
-    "node": ">=18.0.0"
-  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "sideEffects": false,
+  "type": "module",
+  "types": "./dist/index.d.cts",
   "scripts": {
     "build": "tsdown",
     "check": "npm run check:cjs && npm run check:mjs && npm run check:publint",
@@ -23,37 +55,13 @@
     "check:mjs": "es-check es6 './dist/*.mjs' --module",
     "check:publint": "publint",
     "format": "biome check --no-errors-on-unmatched --write",
-    "lint": "npm run lint:tsc && npm run lint:biome",
-    "lint:biome": "biome check --no-errors-on-unmatched",
-    "lint:tsc": "tsc --noEmit",
+    "lint": "biome check --no-errors-on-unmatched",
     "postversion": "git push && git push --tags",
-    "prepare": "husky && npm run build && npm run check",
-    "preversion": "npm run lint && npm test",
+    "prepack": "npm run validate",
+    "prepare": "husky",
+    "preversion": "npm run validate",
+    "typecheck": "tsc --noEmit",
+    "validate": "npm run typecheck && npm run lint && npm test && npm run build && npm run check",
     "test": "jest"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "2.5.0",
-    "@types/jest": "^30.0.0",
-    "es-check": "^9.6.4",
-    "husky": "^9.1.7",
-    "jest": "^30.4.2",
-    "lint-staged": "^17.0.7",
-    "publint": "^0.3.21",
-    "ts-jest": "^29.4.11",
-    "tsdown": "^0.22.3",
-    "typescript": "^6.0.3"
-  },
-  "repository": "github:stldo/url-slug",
-  "keywords": [
-    "slug",
-    "slugify",
-    "url",
-    "urlify",
-    "url-safe",
-    "rfc 3986",
-    "string",
-    "seo"
-  ],
-  "author": "stldo (https://github.com/stldo)",
-  "license": "MIT"
+  }
 }

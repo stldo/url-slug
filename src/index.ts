@@ -1,3 +1,3 @@
-export { default, default as convert } from "./convert";
-export { default as revert } from "./revert";
-export * from "./transformers";
+export { default, default as convert } from "./convert.ts";
+export { default as revert } from "./revert.ts";
+export * from "./transformers.ts";

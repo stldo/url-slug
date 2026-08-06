@@ -1,5 +1,8 @@
-import revert from "../revert";
-import { TITLECASE_TRANSFORMER, UPPERCASE_TRANSFORMER } from "../transformers";
+import revert from "../revert.ts";
+import {
+  TITLECASE_TRANSFORMER,
+  UPPERCASE_TRANSFORMER,
+} from "../transformers.ts";
 
 it("uses unknown reversion and does not change input case", () => {
   expect(revert("UrlSlug-_url.~slug")).toBe("UrlSlug url slug");

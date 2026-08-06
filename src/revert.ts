@@ -1,5 +1,5 @@
-import { CAMELCASE_REGEXP_PATTERN } from "./helpers";
-import type { Transformer } from "./transformers";
+import { CAMELCASE_REGEXP_PATTERN } from "./helpers.ts";
+import type { Transformer } from "./transformers.ts";
 
 const REVERT = /[^-._~!$&'()*+,;=]+/g;
 

@@ -1,6 +1,9 @@
 import { defineConfig, type UserConfig } from "tsdown";
 
 export default defineConfig({
+  deps: {
+    onlyBundle: [],
+  },
   dts: true,
   exports: true,
   format: ["cjs", "esm"],
@@ -9,4 +12,4 @@ export default defineConfig({
     exports: "named",
   },
   sourcemap: "hidden",
-}) satisfies UserConfig as UserConfig;
+}) as UserConfig;

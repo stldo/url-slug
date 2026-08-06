@@ -1,12 +1,9 @@
-import { CAMELCASE_REGEXP_PATTERN, type Dictionary, replace } from "./helpers";
-import { LOWERCASE_TRANSFORMER, type Transformer } from "./transformers";
-
-export interface ConvertOptions {
-  camelCase?: boolean;
-  dictionary?: Dictionary;
-  separator?: string;
-  transformer?: Transformer | null;
-}
+import {
+  CAMELCASE_REGEXP_PATTERN,
+  type Dictionary,
+  replace,
+} from "./helpers.ts";
+import { LOWERCASE_TRANSFORMER, type Transformer } from "./transformers.ts";
 
 const COMBINING_CHARS = /[\u0300-\u036F\u1AB0-\u1AFF\u1DC0-\u1DFF]+/g;
 
@@ -16,6 +13,13 @@ const CONVERT_CAMELCASE = new RegExp(
   `[A-Za-z\\d]*?${CAMELCASE_REGEXP_PATTERN}|[A-Za-z\\d]+`,
   "g",
 );
+
+export interface ConvertOptions {
+  camelCase?: boolean;
+  dictionary?: Dictionary;
+  separator?: string;
+  transformer?: Transformer | null;
+}
 
 export default function urlSlug(
   value: string,
