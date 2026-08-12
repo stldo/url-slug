@@ -237,7 +237,7 @@ Copyright (C) 2015-present stldo
 
 [1]: https://img.shields.io/github/license/stldo/url-slug
 [2]: https://img.shields.io/github/actions/workflow/status/stldo/url-slug/validate.yml?branch=master
-[3]: https://github.com/stldo/url-slug/actions/workflows/validate.js.yml
+[3]: https://github.com/stldo/url-slug/actions/workflows/validate.yml
 [4]: https://img.shields.io/npm/dm/url-slug
 [5]: https://img.shields.io/npm/v/url-slug
 [6]: https://www.npmjs.com/package/url-slug
