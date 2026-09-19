@@ -32,7 +32,7 @@
     "lint-staged": "^17.5.1",
     "publint": "^0.3.24",
     "tsdown": "^0.23.0",
-    "typescript": "^6.0.3"
+    "typescript": "^7.0.2"
   },
   "engines": {
     "node": ">=14.0.0"
