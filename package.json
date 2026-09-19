@@ -22,15 +22,15 @@
     "url": "git+https://github.com/stldo/url-slug.git"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.5.7",
+    "@biomejs/biome": "2.5.14",
     "@types/jest": "^30.0.0",
-    "es-check": "^9.6.4",
+    "es-check": "^9.8.0",
     "husky": "^9.1.7",
-    "jest": "^30.4.2",
-    "lint-staged": "^17.3.0",
-    "publint": "^0.3.23",
+    "jest": "^30.5.2",
+    "lint-staged": "^17.5.1",
+    "publint": "^0.3.24",
     "ts-jest": "^29.4.12",
-    "tsdown": "^0.22.14",
+    "tsdown": "^0.23.0",
     "typescript": "^6.0.3"
   },
   "engines": {
@@ -48,6 +48,10 @@
   "sideEffects": false,
   "type": "module",
   "types": "./dist/index.d.cts",
+  "allowScripts": {
+    "@parcel/watcher": true,
+    "unrs-resolver": true
+  },
   "scripts": {
     "build": "tsdown",
     "check": "npm run check:cjs && npm run check:mjs && npm run check:publint",
