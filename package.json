@@ -23,13 +23,14 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.14",
+    "@swc/core": "^1.16.2",
+    "@swc/jest": "^0.2.39",
     "@types/jest": "^30.0.0",
     "es-check": "^9.8.0",
     "husky": "^9.1.7",
     "jest": "^30.5.2",
     "lint-staged": "^17.5.1",
     "publint": "^0.3.24",
-    "ts-jest": "^29.4.12",
     "tsdown": "^0.23.0",
     "typescript": "^6.0.3"
   },
@@ -50,6 +51,7 @@
   "types": "./dist/index.d.cts",
   "allowScripts": {
     "@parcel/watcher": true,
+    "@swc/core": true,
     "unrs-resolver": true
   },
   "scripts": {

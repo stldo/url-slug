@@ -1,7 +1,5 @@
 {
-  "preset": "ts-jest",
-  "testEnvironment": "node",
   "transform": {
-    "^.+\\.ts?$": "ts-jest"
+    "^.+\\.(t|j)sx?$": "@swc/jest"
   }
 }
